@@ -3,69 +3,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agenda Barbearia</title>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<title>Barbearia Imperial — Agendamento Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --bg: #121214; --gold: #D4AF37; --paper: #F4F4F5; }
-  body{ background: var(--bg); color: var(--paper); font-family: 'Work Sans', sans-serif; padding: 20px; margin: 0; }
-  
-  .cat-title{ color: var(--gold); font-weight: 600; margin-top: 25px; margin-bottom: 15px; text-transform: uppercase; font-size: 14px; }
-  
-  .service-card { 
-    background: #1A1A1E; border: 1px solid #333; border-radius: 12px; 
-    padding: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px;
+  :root{
+    --bg: #09090B;
+    --card-bg: #18181B;
+    --gold: #D4AF37;
+    --gold-hover: #AA8C2C;
+    --paper: #FAFAFA;
+    --muted: #A1A1AA;
+    --line: rgba(255,255,255,0.08);
   }
-  .service-card.selected { border: 2px solid var(--gold); }
-  .icon-box { font-size: 30px; background: #25252a; padding: 10px; border-radius: 10px; }
-  
-  .app-input { background: #1A1A1E; border: 1px solid #333; color: white; padding: 15px; width: 100%; border-radius: 8px; margin-top: 10px; font-size: 16px; }
-  
-  .booking-bar { 
-    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gold); 
-    padding: 20px; text-align: center; font-weight: bold; color: black; font-size: 18px; cursor: pointer;
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--bg);
+    color: var(--paper);
+    font-family: 'Work Sans', sans-serif;
+    padding-bottom: 110px;
   }
+  
+  /* Cabeçalho */
+  .hero {
+    background: linear-gradient(180deg, rgba(212,175,55,0.15) 0%, rgba(9,9,11,1) 100%);
+    padding: 30px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    color: var(--paper);
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  section { padding: 20px; }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Serviços com Fotos */
+  .service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .service-card.selected {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+  }
+  .service-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+  }
+  .service-content {
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .service-info h3 { font-size: 15px; font-weight: 600; }
+  .service-info p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .service-price {
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--gold);
+  }
+
+  /* Barbeiros */
+  .barber-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .barber-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .barber-card.selected {
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.05);
+  }
+  .barber-icon { font-size: 24px; margin-bottom: 4px; }
+  .barber-name { font-size: 13.5px; font-weight: 600; }
+
+  /* Formulário */
+  .form-box {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .form-group { margin-bottom: 12px; }
+  .form-group:last-child { margin-bottom: 0; }
+  .form-group label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .app-input {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--paper);
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+  }
+  .app-input:focus { border-color: var(--gold); }
+
+  /* Barra Fixa Inferior */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0; left: 0; width: 100%;
+    background: #111113;
+    border-top: 1px solid var(--line);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+  .total-label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+  .total-value { font-size: 18px; font-weight: bold; color: var(--gold); font-family: monospace; }
+  .confirm-btn {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .confirm-btn:hover { background: var(--gold-hover); }
 </style>
 </head>
 <body>
 
-<h2 style="color:var(--gold); margin-bottom: 20px;">Agendamento Online</h2>
-
-<div class="service-card" onclick="selectService(this, 'Corte Degrade', 35)">
-  <div class="icon-box">✂️</div>
-  <div>
-    <h3>Corte Degradê</h3>
-    <p>R$ 35,00</p>
-  </div>
+<div class="hero">
+  <h1>Barbearia <span>Imperial</span></h1>
+  <p>Estilo e tradição na palma da sua mão</p>
 </div>
 
-<div class="service-card" onclick="selectService(this, 'Barba Premium', 25)">
-  <div class="icon-box">💈</div>
-  <div>
-    <h3>Barba Premium</h3>
-    <p>R$ 25,00</p>
+<!-- Serviços -->
+<section>
+  <div class="section-title">✂️ Escolha o Serviço</div>
+
+  <div class="service-card selected" onclick="selectService(this, 'Corte Degradê Moderno', 35.00)">
+    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&auto=format&fit=crop&q=80" alt="Corte" class="service-img">
+    <div class="service-content">
+      <div class="service-info">
+        <h3>Corte Degradê Moderno</h3>
+        <p>Acabamento na navalha + lavagem</p>
+      </div>
+      <div class="service-price">R$ 35,00</div>
+    </div>
   </div>
+
+  <div class="service-card" onclick="selectService(this, 'Barba Completa Premium', 25.00)">
+    <img src="https://images.unsplash.com/photo-1503951914875-452162b09f6f?w=600&auto=format&fit=crop&q=80" alt="Barba" class="service-img">
+    <div class="service-content">
+      <div class="service-info">
+        <h3>Barba Completa Premium</h3>
+        <p>Toalha quente e óleos hidratantes</p>
+      </div>
+      <div class="service-price">R$ 25,00</div>
+    </div>
+  </div>
+</section>
+
+<!-- Barbeiros -->
+<section>
+  <div class="section-title">💈 Escolha o Profissional</div>
+  <div class="barber-grid">
+    <div class="barber-card selected" onclick="selectBarber(this, 'Marcos Silva')">
+      <div class="barber-icon">✂️</div>
+      <div class="barber-name">Marcos Silva</div>
+    </div>
+    <div class="barber-card" onclick="selectBarber(this, 'Lucas Oliveira')">
+      <div class="barber-icon">💈</div>
+      <div class="barber-name">Lucas Oliveira</div>
+    </div>
+  </div>
+</section>
+
+<!-- Dados -->
+<section>
+  <div class="section-title">📋 Seus Dados</div>
+  <div class="form-box">
+    <div class="form-group">
+      <label>Seu Nome</label>
+      <input type="text" id="clientName" class="app-input" placeholder="Ex: Carlos Eduardo">
+    </div>
+    <div class="form-group" style="margin-top: 12px;">
+      <label>Horário Desejado</label>
+      <input type="text" id="clientTime" class="app-input" placeholder="Ex: Hoje às 16:30">
+    </div>
+  </div>
+</section>
+
+<!-- Barra Inferior -->
+<div class="bottom-bar">
+  <div>
+    <div class="total-label">Total</div>
+    <div class="total-value" id="barTotal">R$ 35,00</div>
+  </div>
+  <button class="confirm-btn" onclick="sendBooking()">Agendar no WhatsApp ↗</button>
 </div>
-
-<div class="cat-title">Seus Dados</div>
-<input type="text" id="name" class="app-input" placeholder="Seu Nome">
-<input type="text" id="time" class="app-input" placeholder="Horário (ex: 15:00)">
-
-<div style="height: 80px;"></div> <!-- Espaço para não cobrir o rodapé -->
-<div class="booking-bar" onclick="sendBooking()">CONFIRMAR AGENDAMENTO</div>
 
 <script>
-  let service = "Corte Degrade";
+  const WHATSAPP_NUMBER = "5598982845481";
+  let currentService = "Corte Degradê Moderno";
+  let currentPrice = 35.00;
+  let currentBarber = "Marcos Silva";
+
   function selectService(el, name, price) {
     document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
-    service = name;
+    currentService = name;
+    currentPrice = price;
+    document.getElementById('barTotal').textContent = "R$ " + price.toFixed(2).replace('.', ',');
   }
+
+  function selectBarber(el, name) {
+    document.querySelectorAll('.barber-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    currentBarber = name;
+  }
+
   function sendBooking() {
-    const name = document.getElementById('name').value;
-    const time = document.getElementById('time').value;
-    if(!name || !time) { alert("Preencha o nome e horário!"); return; }
-    const msg = `Agendamento: ${service}. Cliente: ${name}, Horário: ${time}`;
-    window.open(`https://wa.me/5598982845481?text=${encodeURIComponent(msg)}`, '_blank');
+    const name = document.getElementById('clientName').value.trim();
+    const time = document.getElementById('clientTime').value.trim();
+
+    if(!name || !time) {
+      alert("Por favor, preencha seu nome e o horário desejado!");
+      return;
+    }
+
+    let msg = `📅 *NOVO AGENDAMENTO*\n\n`;
+    msg += `✂️ *Serviço:* ${currentService}\n`;
+    msg += `💈 *Profissional:* ${currentBarber}\n`;
+    msg += `👤 *Cliente:* ${name}\n`;
+    msg += `⏰ *Horário:* ${time}\n`;
+    msg += `💰 *Valor:* R$ ${currentPrice.toFixed(2).replace('.', ',')}\n\n`;
+    msg += `Confirma meu horário?`;
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(msg);
+    window.open(url, '_blank');
   }
 </script>
 </body>
