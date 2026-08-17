@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Painel Administrativo | Barbearia Imperial</title>
+<title>Barbearia Imperial - Painel</title>
 
 <style>
 
@@ -27,7 +27,7 @@ body{
 
 .container{
     width:95%;
-    max-width:1250px;
+    max-width:1200px;
     margin:auto;
 }
 
@@ -37,58 +37,51 @@ header{
 }
 
 .header{
-    min-height:75px;
+    min-height:70px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:15px;
 }
 
 .logo{
     font-size:22px;
     font-weight:bold;
-    text-transform:uppercase;
 }
 
 .logo span{
     color:#E3BE5C;
 }
 
-.site-link{
+.voltar{
     background:#C6982B;
     color:#17140F;
-    padding:10px 15px;
+    padding:10px 14px;
     text-decoration:none;
-    font-weight:bold;
     border-radius:4px;
+    font-weight:bold;
 }
 
 .hero{
     padding:35px 0 20px;
 }
 
-.eyebrow{
+.hero small{
     color:#E3BE5C;
-    font-size:12px;
     text-transform:uppercase;
-    letter-spacing:3px;
-    margin-bottom:8px;
+    letter-spacing:2px;
 }
 
-h1{
-    font-size:32px;
-    text-transform:uppercase;
+.hero h1{
+    margin-top:8px;
+    font-size:30px;
 }
 
 .hero p{
-    color:#9C9282;
     margin-top:8px;
+    color:#9C9282;
 }
 
 .firebase-status{
-    display:flex;
-    align-items:center;
-    gap:10px;
     background:#211D17;
     border:1px solid #8F6D24;
     padding:14px;
@@ -96,10 +89,12 @@ h1{
 }
 
 .status-dot{
+    display:inline-block;
     width:10px;
     height:10px;
     border-radius:50%;
     background:#777;
+    margin-right:8px;
 }
 
 .status-dot.online{
@@ -108,155 +103,6 @@ h1{
 
 .status-dot.error{
     background:#D66B6B;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-bottom:20px;
-}
-
-.stat{
-    background:#211D17;
-    border:1px solid #8F6D24;
-    padding:20px;
-}
-
-.stat-number{
-    display:block;
-    font-size:32px;
-    font-weight:bold;
-    color:#E3BE5C;
-}
-
-.stat-label{
-    color:#9C9282;
-    font-size:12px;
-    text-transform:uppercase;
-}
-
-.filters{
-    background:#211D17;
-    border:1px solid #8F6D24;
-    padding:18px;
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr auto;
-    gap:12px;
-    margin-bottom:20px;
-}
-
-.field label{
-    display:block;
-    color:#9C9282;
-    font-size:12px;
-    margin-bottom:6px;
-}
-
-.field input,
-.field select{
-    width:100%;
-    height:44px;
-    background:#17140F;
-    color:#EDE4D3;
-    border:1px solid #8F6D24;
-    padding:0 10px;
-}
-
-.button{
-    height:44px;
-    padding:0 16px;
-    background:transparent;
-    color:#EDE4D3;
-    border:1px solid #8F6D24;
-    cursor:pointer;
-}
-
-.table-box{
-    background:#211D17;
-    border:1px solid #8F6D24;
-    overflow-x:auto;
-    margin-bottom:40px;
-}
-
-table{
-    width:100%;
-    min-width:1050px;
-    border-collapse:collapse;
-}
-
-th{
-    background:#2A241C;
-    color:#E3BE5C;
-    text-align:left;
-    padding:14px;
-}
-
-td{
-    padding:14px;
-    border-top:1px solid rgba(255,255,255,.06);
-}
-
-.empty{
-    text-align:center;
-    padding:40px;
-    color:#9C9282;
-}
-
-.badge{
-    padding:5px 9px;
-    font-size:11px;
-    text-transform:uppercase;
-}
-
-.badge.confirmado{
-    color:#25D366;
-}
-
-.badge.cancelado{
-    color:#D66B6B;
-}
-
-.action{
-    display:inline-block;
-    padding:7px 9px;
-    margin:2px;
-    background:transparent;
-    color:#EDE4D3;
-    border:1px solid #8F6D24;
-    text-decoration:none;
-    cursor:pointer;
-    font-size:11px;
-}
-
-.action.whatsapp{
-    color:#25D366;
-    border-color:#25D366;
-}
-
-.action.cancel{
-    color:#D66B6B;
-    border-color:#D66B6B;
-}
-
-@media(max-width:800px){
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .filters{
-        grid-template-columns:1fr;
-    }
-
-    .header{
-        min-height:65px;
-    }
-
-    h1{
-        font-size:26px;
-    }
-
 }
 
 </style>
@@ -273,9 +119,12 @@ td{
 Barbearia <span>Imperial</span>
 </div>
 
-<a href="index.html"
-class="site-link">
+<a
+href="index.html"
+class="voltar">
+
 ← Voltar
+
 </a>
 
 </div>
@@ -286,111 +135,74 @@ class="site-link">
 
 <section class="hero">
 
-<div class="eyebrow">
+<small>
 Administração
-</div>
+</small>
 
 <h1>
-Central de Agendamentos
+Painel de Agendamentos
 </h1>
 
 <p>
-Gerencie os horários da barbearia em tempo real.
+Acompanhe os agendamentos em tempo real.
 </p>
 
 </section>
 
 <div class="firebase-status">
 
-<span id="statusDot"
+<span
+id="statusDot"
 class="status-dot">
 </span>
 
 <span id="firebaseStatus">
-Conectando ao Firebase...
+Iniciando painel...
 </span>
 
 </div>
+<!-- ESTATÍSTICAS -->
 
 <section class="stats">
 
 <div class="stat">
-
-<span id="total"
-class="stat-number">
-0
-</span>
-
-<span class="stat-label">
-Total
-</span>
-
+<strong id="total">0</strong>
+<span>Total</span>
 </div>
 
 <div class="stat">
-
-<span id="confirmados"
-class="stat-number">
-0
-</span>
-
-<span class="stat-label">
-Confirmados
-</span>
-
+<strong id="confirmados">0</strong>
+<span>Confirmados</span>
 </div>
 
 <div class="stat">
-
-<span id="hoje"
-class="stat-number">
-0
-</span>
-
-<span class="stat-label">
-Hoje
-</span>
-
+<strong id="hoje">0</strong>
+<span>Hoje</span>
 </div>
 
 <div class="stat">
-
-<span id="cancelados"
-class="stat-number">
-0
-</span>
-
-<span class="stat-label">
-Cancelados
-</span>
-
+<strong id="cancelados">0</strong>
+<span>Cancelados</span>
 </div>
 
-    </section>
-    <!-- =====================================================
-     FILTROS
-===================================================== -->
+</section>
 
-<section class="filters">
 
-<div class="field">
+<!-- FILTROS -->
 
-<label for="filtroData">
-Data
-</label>
+<section class="filtros">
+
+<div>
+<label>Data</label>
 
 <input
 type="date"
 id="filtroData">
-
 </div>
 
 
-<div class="field">
-
-<label for="filtroBarbeiro">
-Barbeiro
-</label>
+<div>
+<label>Barbeiro</label>
 
 <select id="filtroBarbeiro">
 
@@ -419,11 +231,8 @@ Bruno Mendes
 </div>
 
 
-<div class="field">
-
-<label for="filtroStatus">
-Status
-</label>
+<div>
+<label>Status</label>
 
 <select id="filtroStatus">
 
@@ -446,21 +255,134 @@ Cancelados
 
 <button
 id="limpar"
-class="button"
 type="button">
 
-Limpar
+Limpar filtros
 
 </button>
 
 </section>
 
 
-<!-- =====================================================
-     TABELA DE AGENDAMENTOS
-===================================================== -->
+<style>
 
-<section class="table-box">
+.stats{
+
+display:grid;
+grid-template-columns:
+repeat(4,1fr);
+
+gap:15px;
+margin-bottom:20px;
+
+}
+
+.stat{
+
+background:#211D17;
+border:1px solid #8F6D24;
+padding:20px;
+
+}
+
+.stat strong{
+
+display:block;
+font-size:30px;
+color:#E3BE5C;
+
+}
+
+.stat span{
+
+color:#9C9282;
+font-size:12px;
+text-transform:uppercase;
+
+}
+
+.filtros{
+
+display:grid;
+grid-template-columns:
+1fr 1fr 1fr auto;
+
+gap:12px;
+
+background:#211D17;
+border:1px solid #8F6D24;
+
+padding:18px;
+margin-bottom:20px;
+
+}
+
+.filtros label{
+
+display:block;
+font-size:12px;
+color:#9C9282;
+margin-bottom:6px;
+
+}
+
+.filtros input,
+.filtros select{
+
+width:100%;
+height:42px;
+
+background:#17140F;
+color:#EDE4D3;
+
+border:1px solid #8F6D24;
+
+padding:0 10px;
+
+}
+
+.filtros button{
+
+height:42px;
+padding:0 15px;
+
+background:#C6982B;
+color:#17140F;
+
+border:0;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+@media(max-width:700px){
+
+.stats{
+
+grid-template-columns:
+1fr 1fr;
+
+}
+
+.filtros{
+
+grid-template-columns:
+1fr;
+
+}
+
+}
+
+</style>
+<!-- LISTA DE AGENDAMENTOS -->
+
+<section class="tabela">
+
+<h2>
+Agendamentos
+</h2>
+
+<div class="tabela-scroll">
 
 <table>
 
@@ -468,54 +390,27 @@ Limpar
 
 <tr>
 
-<th>
-Data
-</th>
-
-<th>
-Hora
-</th>
-
-<th>
-Cliente
-</th>
-
-<th>
-Telefone
-</th>
-
-<th>
-Serviço
-</th>
-
-<th>
-Barbeiro
-</th>
-
-<th>
-Código
-</th>
-
-<th>
-Status
-</th>
-
-<th>
-Ações
-</th>
+<th>Data</th>
+<th>Hora</th>
+<th>Cliente</th>
+<th>Telefone</th>
+<th>Serviço</th>
+<th>Barbeiro</th>
+<th>Código</th>
+<th>Status</th>
+<th>Ação</th>
 
 </tr>
 
 </thead>
 
-
-<tbody id="lista">
+<tbody id="listaAgendamentos">
 
 <tr>
 
 <td
 colspan="9"
-class="empty">
+class="carregando">
 
 Carregando agendamentos...
 
@@ -527,32 +422,128 @@ Carregando agendamentos...
 
 </table>
 
+</div>
+
 </section>
 
-</main>
 
+<style>
 
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
+.tabela{
 
-<script
-src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js">
-</script>
+background:#211D17;
+border:1px solid #8F6D24;
+margin-bottom:40px;
 
-<script
-src="https://www.gstatic.com/firebasejs/11.6.1/firebase-database-compat.js">
-</script>
+}
+
+.tabela h2{
+
+padding:18px;
+color:#E3BE5C;
+font-size:20px;
+
+}
+
+.tabela-scroll{
+
+overflow-x:auto;
+
+}
+
+table{
+
+width:100%;
+min-width:1000px;
+border-collapse:collapse;
+
+}
+
+th{
+
+background:#2A241C;
+color:#E3BE5C;
+padding:13px;
+text-align:left;
+font-size:12px;
+
+}
+
+td{
+
+padding:13px;
+border-top:1px solid rgba(255,255,255,.06);
+font-size:13px;
+
+}
+
+.carregando{
+
+text-align:center;
+padding:40px;
+color:#9C9282;
+
+}
+
+.status{
+
+padding:5px 8px;
+font-size:11px;
+text-transform:uppercase;
+
+}
+
+.status.confirmado{
+
+color:#25D366;
+
+}
+
+.status.cancelado{
+
+color:#D66B6B;
+
+}
+
+.btn-whatsapp{
+
+display:inline-block;
+padding:7px 9px;
+
+border:1px solid #25D366;
+color:#25D366;
+
+text-decoration:none;
+font-size:11px;
+
+}
+
+.btn-cancelar{
+
+padding:7px 9px;
+
+background:transparent;
+
+border:1px solid #D66B6B;
+color:#D66B6B;
+
+font-size:11px;
+cursor:pointer;
+
+}
+
+</style>
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-database-compat.js"></script>
 
 
 <script>
 
-'use strict';
+"use strict";
 
-
-/* =====================================================
-   CONFIGURAÇÃO FIREBASE
-===================================================== */
 
 const firebaseConfig = {
 
@@ -583,102 +574,94 @@ measurementId:
 };
 
 
-/* =====================================================
-   VARIÁVEIS
-===================================================== */
-
-let db = null;
+let db;
 
 let agendamentos = {};
 
 
-/* =====================================================
-   ELEMENTOS DA PÁGINA
-===================================================== */
-
 const lista =
-document.getElementById("lista");
+document.getElementById(
+"listaAgendamentos"
+);
 
-const filtroData =
-document.getElementById("filtroData");
-
-const filtroBarbeiro =
-document.getElementById("filtroBarbeiro");
-
-const filtroStatus =
-document.getElementById("filtroStatus");
 
 const statusTexto =
-document.getElementById("firebaseStatus");
+document.getElementById(
+"firebaseStatus"
+);
+
 
 const statusDot =
-document.getElementById("statusDot");
+document.getElementById(
+"statusDot"
+);
 
-
-/* =====================================================
-   INICIALIZAR FIREBASE
-===================================================== */
 
 try {
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(
+firebaseConfig
+);
 
-db = firebase.database();
+db =
+firebase.database();
 
-console.log("Firebase inicializado com sucesso.");
+
+statusTexto.textContent =
+"Firebase conectado. Carregando agendamentos...";
+
+
+statusDot.classList.add(
+"online"
+);
+
+
+console.log(
+"Firebase conectado com sucesso."
+);
+
 
 }
 
-catch(error) {
+catch(error){
 
 console.error(
-"Erro ao inicializar Firebase:",
+"Erro Firebase:",
 error
 );
 
+
 statusTexto.textContent =
-"Erro ao iniciar Firebase";
-
-statusDot.classList.add("error");
-
-}
+"Erro ao conectar ao Firebase";
 
 
-/* =====================================================
-   DATA ATUAL
-===================================================== */
-
-function hojeISO(){
-
-const agora = new Date();
-
-const ano =
-agora.getFullYear();
-
-const mes =
-String(
-agora.getMonth() + 1
-).padStart(2,"0");
-
-const dia =
-String(
-agora.getDate()
-).padStart(2,"0");
-
-return (
-ano +
-"-" +
-mes +
-"-" +
-dia
+statusDot.classList.add(
+"error"
 );
 
+
+lista.innerHTML = `
+
+<tr>
+
+<td
+colspan="9"
+class="carregando">
+
+Erro ao conectar ao Firebase:
+
+<br><br>
+
+${error.message}
+
+</td>
+
+</tr>
+
+`;
+
 }
 
-
-/* =====================================================
-   FORMATAR DATA
-===================================================== */
 
 function formatarData(data){
 
@@ -688,14 +671,17 @@ return "-";
 
 }
 
+
 const partes =
 String(data).split("-");
+
 
 if(partes.length !== 3){
 
 return data;
 
 }
+
 
 return (
 
@@ -710,10 +696,6 @@ partes[0]
 }
 
 
-/* =====================================================
-   PROTEGER TEXTO HTML
-===================================================== */
-
 function escapar(valor){
 
 if(
@@ -725,45 +707,80 @@ return "";
 
 }
 
+
 return String(valor)
 
-.replace(
-/&/g,
-"&amp;"
-)
+.replace(/&/g,"&amp;")
 
-.replace(
-/</g,
-"&lt;"
-)
+.replace(/</g,"&lt;")
 
-.replace(
-/>/g,
-"&gt;"
-)
+.replace(/>/g,"&gt;")
 
-.replace(
-/"/g,
-"&quot;"
-)
+.replace(/"/g,"&quot;")
 
-.replace(
-/'/g,
-"&#039;"
-);
+.replace(/'/g,"&#039;");
 
 }
 
 
-/* =====================================================
-   STATUS ONLINE
-===================================================== */
+function hoje(){
 
-function firebaseOnline(){
+const data =
+new Date();
+
+return (
+
+data.getFullYear() +
+"-" +
+
+String(
+data.getMonth()+1
+).padStart(2,"0") +
+
+"-" +
+
+String(
+data.getDate()
+).padStart(2,"0")
+
+);
+
+}
+    <!-- LEITURA DOS AGENDAMENTOS -->
+
+function carregarAgendamentos(){
+
+if(!db){
+
+return;
+
+}
+
+
+statusTexto.textContent =
+"Conectando aos agendamentos...";
+
+
+db.ref("agendamentos").on(
+
+"value",
+
+function(snapshot){
+
+console.log(
+"Dados recebidos do Firebase:",
+snapshot.val()
+);
+
+
+agendamentos =
+snapshot.val() || {};
+
 
 statusTexto.textContent =
 "Firebase conectado — dados em tempo real";
 
+
 statusDot.classList.remove(
 "error"
 );
@@ -772,17 +789,22 @@ statusDot.classList.add(
 "online"
 );
 
-}
 
+renderizarAgendamentos();
 
-/* =====================================================
-   STATUS DE ERRO
-===================================================== */
+},
 
-function firebaseErro(mensagem){
+function(error){
+
+console.error(
+"Erro ao ler agendamentos:",
+error
+);
+
 
 statusTexto.textContent =
-"Erro no Firebase: " + mensagem;
+"Erro ao carregar agendamentos";
+
 
 statusDot.classList.remove(
 "online"
@@ -792,14 +814,6 @@ statusDot.classList.add(
 "error"
 );
 
-}
-
-
-/* =====================================================
-   FUNÇÃO DE ERRO NA TABELA
-===================================================== */
-
-function mostrarErro(mensagem){
 
 lista.innerHTML = `
 
@@ -807,9 +821,13 @@ lista.innerHTML = `
 
 <td
 colspan="9"
-class="empty">
+class="carregando">
 
-${escapar(mensagem)}
+Não foi possível carregar os agendamentos.
+
+<br><br>
+
+${escapar(error.message)}
 
 </td>
 
@@ -818,114 +836,167 @@ ${escapar(mensagem)}
 `;
 
 }
-    <!-- =====================================================
-     LINK DO WHATSAPP
-===================================================== -->
 
-function criarLinkWhatsApp(agendamento){
-
-let telefone =
-String(
-agendamento.telefone || ""
-).replace(
-/\D/g,
-""
 );
 
-if(!telefone){
-
-return "";
-
-}
-
-if(!telefone.startsWith("55")){
-
-telefone =
-"55" + telefone;
-
 }
 
 
-const mensagem =
+/* =====================================================
+   RENDERIZAR
+===================================================== */
 
-`Olá, ${agendamento.nome || ""}! 👋
+function renderizarAgendamentos(){
 
-Seu agendamento na Barbearia Imperial está confirmado. ✂️
+const filtroData =
+document.getElementById(
+"filtroData"
+).value;
 
-📅 Data: ${formatarData(agendamento.data)}
-⏰ Horário: ${agendamento.hora || ""}
-💈 Serviço: ${agendamento.servico || ""}
-🧔 Barbeiro: ${agendamento.barbeiro || ""}
-🎫 Código: ${agendamento.id || ""}
 
-Pedimos que chegue com 5 minutos de antecedência.
+const filtroBarbeiro =
+document.getElementById(
+"filtroBarbeiro"
+).value;
 
-Até lá!`;
 
+const filtroStatus =
+document.getElementById(
+"filtroStatus"
+).value;
+
+
+const registros =
+Object.entries(
+agendamentos
+);
+
+
+let filtrados =
+registros.filter(
+
+function([chave,item]){
+
+
+if(
+filtroData &&
+item.data !== filtroData
+){
+
+return false;
+
+}
+
+
+if(
+filtroBarbeiro &&
+item.barbeiro !== filtroBarbeiro
+){
+
+return false;
+
+}
+
+
+if(
+filtroStatus &&
+item.status !== filtroStatus
+){
+
+return false;
+
+}
+
+
+return true;
+
+}
+
+);
+
+
+/* ORDENAR */
+
+filtrados.sort(
+
+function(a,b){
+
+const itemA =
+a[1];
+
+const itemB =
+b[1];
+
+
+const dataA =
+String(itemA.data || "") +
+" " +
+String(itemA.hora || "");
+
+
+const dataB =
+String(itemB.data || "") +
+" " +
+String(itemB.hora || "");
+
+
+return dataA.localeCompare(
+dataB
+);
+
+}
+
+);
+
+
+/* ESTATÍSTICAS */
+
+let total =
+registros.length;
+
+
+let confirmados =
+registros.filter(
+
+function([chave,item]){
+
+return item.status ===
+"confirmado";
+
+}
+
+).length;
+
+
+let cancelados =
+registros.filter(
+
+function([chave,item]){
+
+return item.status ===
+"cancelado";
+
+}
+
+).length;
+
+
+let agendamentosHoje =
+registros.filter(
+
+function([chave,item]){
 
 return (
-"https://wa.me/" +
-telefone +
-"?text=" +
-encodeURIComponent(mensagem)
-);
 
-}
-
-
-/* =====================================================
-   RENDERIZAR AGENDAMENTOS
-===================================================== */
-
-function renderizar(){
-
-const listaCompleta =
-Object.entries(
-agendamentos || {}
-)
-
-.map(
-([chave,dados]) => ({
-
-chave: chave,
-
-...dados
-
-})
-);
-
-
-/* =====================================================
-   ESTATÍSTICAS
-===================================================== */
-
-const total =
-listaCompleta.length;
-
-
-const confirmados =
-listaCompleta.filter(
-item =>
-item.status === "confirmado"
-).length;
-
-
-const cancelados =
-listaCompleta.filter(
-item =>
-item.status === "cancelado"
-).length;
-
-
-const hoje =
-listaCompleta.filter(
-item =>
-
-item.data === hojeISO()
+item.data === hoje()
 
 &&
 
 item.status !== "cancelado"
+
+);
+
+}
 
 ).length;
 
@@ -951,93 +1022,10 @@ cancelados;
 document.getElementById(
 "hoje"
 ).textContent =
-hoje;
+agendamentosHoje;
 
 
-/* =====================================================
-   FILTROS
-===================================================== */
-
-const data =
-filtroData.value;
-
-
-const barbeiro =
-filtroBarbeiro.value;
-
-
-const status =
-filtroStatus.value;
-
-
-const filtrados =
-listaCompleta.filter(
-item => {
-
-if(
-data &&
-item.data !== data
-){
-
-return false;
-
-}
-
-
-if(
-barbeiro &&
-item.barbeiro !== barbeiro
-){
-
-return false;
-
-}
-
-
-if(
-status &&
-item.status !== status
-){
-
-return false;
-
-}
-
-
-return true;
-
-}
-);
-
-
-/* =====================================================
-   ORDENAR POR DATA E HORÁRIO
-===================================================== */
-
-filtrados.sort(
-(a,b) => {
-
-const A =
-String(a.data || "") +
-" " +
-String(a.hora || "");
-
-
-const B =
-String(b.data || "") +
-" " +
-String(b.hora || "");
-
-
-return A.localeCompare(B);
-
-}
-);
-
-
-/* =====================================================
-   NENHUM AGENDAMENTO
-===================================================== */
+/* NENHUM RESULTADO */
 
 if(
 filtrados.length === 0
@@ -1049,7 +1037,7 @@ lista.innerHTML = `
 
 <td
 colspan="9"
-class="empty">
+class="carregando">
 
 Nenhum agendamento encontrado.
 
@@ -1064,66 +1052,64 @@ return;
 }
 
 
-/* =====================================================
-   MONTAR TABELA
-===================================================== */
+/* TABELA */
 
 lista.innerHTML =
-
 filtrados.map(
-item => {
 
-const statusAtual =
+function([chave,item]){
+
+const status =
 item.status ||
 "confirmado";
 
 
-const whatsapp =
-criarLinkWhatsApp(
-item
+let telefone =
+String(
+item.telefone || ""
+).replace(
+/\D/g,
+""
 );
 
 
-let acoes = "";
-
-
-if(whatsapp){
-
-acoes += `
-
-<a
-class="action whatsapp"
-href="${whatsapp}"
-target="_blank"
-rel="noopener">
-
-WhatsApp
-
-</a>
-
-`;
-
-}
-
-
 if(
-statusAtual !== "cancelado"
+telefone &&
+!telefone.startsWith("55")
 ){
 
-acoes += `
-
-<button
-class="action cancel"
-type="button"
-onclick="cancelarAgendamento('${item.chave}')">
-
-Cancelar
-
-</button>
-
-`;
+telefone =
+"55" + telefone;
 
 }
+
+
+const mensagem =
+
+`Olá, ${item.nome || ""}! 👋
+
+Seu agendamento na Barbearia Imperial está confirmado.
+
+📅 Data: ${formatarData(item.data)}
+⏰ Horário: ${item.hora || ""}
+💈 Serviço: ${item.servico || ""}
+🧔 Barbeiro: ${item.barbeiro || ""}
+🎫 Código: ${item.id || ""}
+
+Até lá!`;
+
+
+const linkWhatsApp =
+telefone ?
+
+"https://wa.me/" +
+telefone +
+"?text=" +
+encodeURIComponent(
+mensagem
+)
+
+: "";
 
 
 return `
@@ -1131,95 +1117,82 @@ return `
 <tr>
 
 <td>
-
 ${escapar(
-formatarData(
-item.data
-)
+formatarData(item.data)
 )}
-
 </td>
 
-
 <td>
-
 <strong>
-
-${escapar(
-item.hora || "-"
-)}
-
+${escapar(item.hora || "-")}
 </strong>
-
 </td>
-
 
 <td>
-
-${escapar(
-item.nome || "-"
-)}
-
+${escapar(item.nome || "-")}
 </td>
-
 
 <td>
-
-${escapar(
-item.telefone || "-"
-)}
-
+${escapar(item.telefone || "-")}
 </td>
-
 
 <td>
-
-${escapar(
-item.servico || "-"
-)}
-
+${escapar(item.servico || "-")}
 </td>
-
 
 <td>
-
-${escapar(
-item.barbeiro || "-"
-)}
-
+${escapar(item.barbeiro || "-")}
 </td>
-
 
 <td>
-
-${escapar(
-item.id || "-"
-)}
-
+${escapar(item.id || "-")}
 </td>
-
 
 <td>
 
 <span
-class="badge ${
-statusAtual === "cancelado"
-? "cancelado"
-: "confirmado"
-}">
+class="status ${status === "cancelado" ? "cancelado" : "confirmado"}">
 
-${escapar(
-statusAtual
-)}
+${escapar(status)}
 
 </span>
 
 </td>
 
-
 <td>
 
-${acoes}
+${
+linkWhatsApp
+?
+`
+<a
+href="${linkWhatsApp}"
+target="_blank"
+class="btn-whatsapp">
+
+WhatsApp
+
+</a>
+`
+:
+""
+}
+
+${
+status !== "cancelado"
+?
+`
+<button
+class="btn-cancelar"
+onclick="cancelarAgendamento('${chave}')">
+
+Cancelar
+
+</button>
+`
+:
+""
+}
 
 </td>
 
@@ -1228,12 +1201,11 @@ ${acoes}
 `;
 
 }
+
 ).join("");
 
 }
-
-
-/* =====================================================
+    /* =====================================================
    CANCELAR AGENDAMENTO
 ===================================================== */
 
@@ -1258,13 +1230,9 @@ const confirmar =
 confirm(
 
 "Cancelar o agendamento de " +
-
 (agendamento.nome || "cliente") +
-
 " às " +
-
 (agendamento.hora || "") +
-
 "?"
 
 );
@@ -1282,8 +1250,7 @@ try{
 await db
 
 .ref(
-"agendamentos/" +
-chave
+"agendamentos/" + chave
 )
 
 .update({
@@ -1298,7 +1265,7 @@ new Date().toISOString()
 
 
 alert(
-"Agendamento cancelado com sucesso."
+"Agendamento cancelado com sucesso!"
 );
 
 }
@@ -1311,182 +1278,79 @@ error
 );
 
 alert(
-
-"Erro ao cancelar o agendamento: " +
+"Erro ao cancelar: " +
 error.message
-
 );
 
 }
 
 }
-
-
-window.cancelarAgendamento =
-cancelarAgendamento;
 
 
 /* =====================================================
-   CONEXÃO EM TEMPO REAL COM FIREBASE
+   FILTROS
 ===================================================== */
 
-if(db){
-
-const referencia =
-db.ref(
-"agendamentos"
-);
-
-
-referencia.on(
-
-"value",
-
-function(snapshot){
-
-console.log(
-"Agendamentos recebidos:",
-snapshot.val()
-);
-
-
-agendamentos =
-snapshot.val() || {};
-
-
-firebaseOnline();
-
-
-renderizar();
-
-},
-
-
-function(error){
-
-console.error(
-"Erro ao ler Firebase:",
-error
-);
-
-
-firebaseErro(
-error.message
-);
-
-
-mostrarErro(
-
-"Erro ao carregar agendamentos: " +
-error.message
-
-);
-
-}
-
-);
-
-    }
-    <!-- =====================================================
-     FILTROS EM TEMPO REAL
-===================================================== */
-
-filtroData.addEventListener(
+document.getElementById(
+"filtroData"
+).addEventListener(
 "change",
-function(){
-
-renderizar();
-
-}
+renderizarAgendamentos
 );
 
 
-filtroBarbeiro.addEventListener(
+document.getElementById(
+"filtroBarbeiro"
+).addEventListener(
 "change",
-function(){
-
-renderizar();
-
-}
+renderizarAgendamentos
 );
 
 
-filtroStatus.addEventListener(
+document.getElementById(
+"filtroStatus"
+).addEventListener(
 "change",
-function(){
-
-renderizar();
-
-}
+renderizarAgendamentos
 );
 
 
 /* =====================================================
-     LIMPAR FILTROS
+   LIMPAR FILTROS
 ===================================================== */
 
 document.getElementById(
 "limpar"
 ).addEventListener(
+
 "click",
+
 function(){
 
-filtroData.value = "";
+document.getElementById(
+"filtroData"
+).value = "";
 
-filtroBarbeiro.value = "";
+document.getElementById(
+"filtroBarbeiro"
+).value = "";
 
-filtroStatus.value = "";
+document.getElementById(
+"filtroStatus"
+).value = "";
 
-renderizar();
+renderizarAgendamentos();
 
 }
+
 );
 
 
 /* =====================================================
-     TESTE INICIAL DO FIREBASE
+   INICIAR
 ===================================================== */
 
-if(db){
-
-db.ref(
-"agendamentos"
-).once(
-"value"
-)
-
-.then(
-function(snapshot){
-
-console.log(
-"Teste de conexão Firebase OK."
-);
-
-console.log(
-"Dados encontrados:",
-snapshot.val()
-);
-
-}
-)
-
-.catch(
-function(error){
-
-console.error(
-"Falha no teste do Firebase:",
-error
-);
-
-firebaseErro(
-error.message
-);
-
-}
-);
-
-}
-
+carregarAgendamentos();
 
 </script>
 
