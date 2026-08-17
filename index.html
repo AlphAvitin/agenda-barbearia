@@ -3,136 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Barbearia Imperial — Tradição e Estilo</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Barbearia Imperial | Agendamento Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #09090B; --card-bg: #141417; --card-border: #27272A;
-    --gold: #D4AF37; --gold-hover: #AA8C2C; --paper: #FAFAFA; --muted: #A1A1AA;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--paper); font-family: 'Work Sans', sans-serif; padding-bottom: 90px; }
+  :root { --bg: #09090b; --card: #141417; --gold: #D4AF37; --text: #ffffff; --muted: #a1a1aa; }
+  body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; margin: 0; padding-bottom: 120px; }
+  
+  /* Estrutura */
+  .container { max-width: 500px; margin: 0 auto; padding: 20px; }
+  header { text-align: center; padding: 40px 0; border-bottom: 1px solid #27272a; }
+  h1 { color: var(--gold); font-size: 28px; margin-bottom: 10px; }
+  p { color: var(--muted); font-size: 14px; }
 
-  /* Topo / Hero */
-  .hero { background: linear-gradient(180deg, rgba(212,175,55,0.12) 0%, rgba(9,9,11,1) 100%); padding: 40px 20px 30px; text-align: center; border-bottom: 1px solid var(--card-border); }
-  .hero h1 { font-family: 'Fraunces', serif; font-size: 32px; color: var(--paper); margin-bottom: 8px; }
-  .hero h1 span { color: var(--gold); }
-  .hero p { font-size: 13.5px; color: var(--muted); max-width: 32ch; margin: 0 auto; line-height: 1.5; }
-
-  /* Botão Instagram */
-  .ig-btn {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: white; padding: 14px; border-radius: 12px; margin: 20px 20px 0;
-    text-decoration: none; font-weight: 600; font-size: 14px;
+  /* Elementos */
+  .section-title { color: var(--gold); font-weight: 600; margin: 25px 0 15px; text-transform: uppercase; letter-spacing: 1px; font-size: 13px; }
+  
+  .ig-link { 
+    display: block; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: white; text-align: center; padding: 15px; border-radius: 10px; font-weight: bold; text-decoration: none; margin-bottom: 20px;
   }
 
-  section { padding: 25px 20px; border-bottom: 1px solid var(--card-border); }
-  .section-title { font-family: 'Fraunces', serif; font-size: 20px; color: var(--gold); margin-bottom: 12px; }
+  .service { background: var(--card); border: 1px solid #27272a; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+  .service.selected { border: 2px solid var(--gold); }
   
-  .about-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .slot { background: var(--card); border: 1px solid #27272a; padding: 10px 0; text-align: center; border-radius: 6px; cursor: pointer; font-size: 12px; }
+  .slot.active { background: var(--gold); color: black; font-weight: bold; }
+
+  input { width: 100%; background: var(--card); border: 1px solid #27272a; color: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; }
   
-  /* Componentes do Agendamento */
-  .service-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; overflow: hidden; margin-bottom: 14px; cursor: pointer; transition: 0.2s; }
-  .service-card.selected { border-color: var(--gold); box-shadow: 0 0 15px rgba(212,175,55,0.1); }
-  .service-img { width: 100%; height: 140px; object-fit: cover; }
-  .service-details { padding: 16px; display: flex; justify-content: space-between; align-items: center; }
-  .service-details h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-  .service-price { font-family: monospace; font-size: 16px; font-weight: bold; color: var(--gold); }
-
-  .slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
-  .slot-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--paper); padding: 12px 0; font-size: 13px; border-radius: 8px; cursor: pointer; font-family: monospace; }
-  .slot-btn.selected { background: var(--gold); color: #000; border-color: var(--gold); font-weight: bold; }
-
-  .app-input { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--paper); padding: 14px; width: 100%; border-radius: 10px; font-size: 14px; margin-top: 5px; }
-
-  /* Barra Fixa */
-  .bottom-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #111113; border-top: 1px solid var(--card-border); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
-  .confirm-btn { background: var(--gold); color: #000; border: none; padding: 12px 22px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; text-transform: uppercase; }
+  .fix-btn { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gold); color: black; padding: 20px; text-align: center; font-weight: bold; font-size: 16px; cursor: pointer; border: none; z-index: 1000; }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <h1>Barbearia <span>Imperial</span></h1>
-  <p>Ambiente climatizado, profissionais renomados e o melhor corte da região.</p>
+<div class="container">
+    <header>
+        <h1>Barbearia Imperial</h1>
+        <p>Tradição e Estilo em Turilândia</p>
+    </header>
+
+    <a href="https://instagram.com" class="ig-link">ACOMPANHE NOSSO INSTAGRAM 📸</a>
+
+    <div class="section-title">Nossos Serviços</div>
+    <div class="service" onclick="selectService(this, 'Corte Degradê', 35)"><span>✂️ Corte Degradê</span> <b>R$ 35</b></div>
+    <div class="service" onclick="selectService(this, 'Barba Premium', 25)"><span>💈 Barba Premium</span> <b>R$ 25</b></div>
+    <div class="service" onclick="selectService(this, 'Combo Corte + Barba', 55)"><span>⚡ Combo Completo</span> <b>R$ 55</b></div>
+
+    <div class="section-title">📅 Escolha o Horário</div>
+    <div class="grid" id="grid"></div>
+
+    <div class="section-title">📋 Seus Dados</div>
+    <input type="date" id="date">
+    <input type="text" id="name" placeholder="Nome Completo">
 </div>
 
-<a href="https://instagram.com/seuusuario" target="_blank" class="ig-btn">
-  📸 Acompanhe nosso Instagram
-</a>
-
-<section>
-  <div class="section-title">A Barbearia</div>
-  <div class="about-box">
-    Na <strong>Imperial</strong>, cada corte é um ritual de cuidado pessoal. Venha tomar uma cerveja gelada enquanto cuidamos do seu estilo.
-  </div>
-</section>
-
-<section>
-  <div class="section-title">Serviços</div>
-  <div class="service-card selected" onclick="selectService(this, 'Corte Degradê', 35.00)">
-    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&auto=format&fit=crop&q=80" class="service-img">
-    <div class="service-details">
-      <h3>Corte Degradê</h3>
-      <div class="service-price">R$ 35,00</div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="section-title">Data e Horário</div>
-  <input type="date" id="clientDate" class="app-input">
-  <div class="slots-grid" id="slotsGrid"></div>
-</section>
-
-<section>
-  <div class="section-title">Identificação</div>
-  <input type="text" id="clientName" class="app-input" placeholder="Seu Nome Completo">
-</section>
-
-<div class="bottom-bar">
-  <div style="color:var(--gold); font-weight:bold;" id="barTotal">R$ 35,00</div>
-  <button class="confirm-btn" onclick="sendBooking()">Agendar ↗</button>
-</div>
+<button class="fix-btn" onclick="book()">CONFIRMAR AGENDAMENTO</button>
 
 <script>
-  const WHATSAPP_NUMBER = "5598982845481";
-  let currentService = "Corte Degradê";
-  let currentPrice = 35.00;
-  let currentTime = null;
+    let service = "Corte Degradê", time = null;
+    const grid = document.getElementById('grid');
+    document.getElementById('date').valueAsDate = new Date();
 
-  // Gerar grade horários
-  const grid = document.getElementById('slotsGrid');
-  for (let h = 8; h <= 20; h++) {
-    for (let m = 0; m < 60; m += 30) {
-      if (h === 20 && m > 0) break;
-      const t = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
-      const btn = document.createElement('button');
-      btn.className = 'slot-btn'; btn.textContent = t;
-      btn.onclick = () => {
-        document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected'); currentTime = t;
-      };
-      grid.appendChild(btn);
+    // Cria os slots
+    for (let h = 8; h <= 20; h++) {
+        for (let m = 0; m < 60; m += 30) {
+            if (h === 20 && m > 0) break;
+            const t = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+            const b = document.createElement('div');
+            b.className = 'slot'; b.innerText = t;
+            b.onclick = () => {
+                document.querySelectorAll('.slot').forEach(s => s.classList.remove('active'));
+                b.classList.add('active'); time = t;
+            };
+            grid.appendChild(b);
+        }
     }
-  }
 
-  document.getElementById('clientDate').valueAsDate = new Date();
+    function selectService(el, name, price) {
+        document.querySelectorAll('.service').forEach(s => s.classList.remove('selected'));
+        el.classList.add('selected'); service = name;
+    }
 
-  function selectService(el, name, price) {
-    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    currentService = name; currentPrice = price;
-    document.getElementById('barTotal').textContent = "R$ " + price.toFixed(2).replace('.', ',');
-  }
-
-  function sendBooking() {
-    const name = document.getElementById('clientName').value;
-    if(!name || !currentTime) return alert("Selecione horário e nome!");
-    const msg = `Agendamento: ${currentService} | Data: ${document.getElementById('clientDate').value} | Hora: ${currentTime} | Nome: ${name}`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-  }
+    function book() {
+        const name = document.getElementById('name').value;
+        const date = document.getElementById('date').value;
+        if(!time || !name) return alert("Selecione horário e preencha seu nome!");
+        window.open(`https://wa.me/5598982845481?text=Agendamento: ${service}%0AData: ${date}%0AHora: ${time}%0ANome: ${name}`);
+    }
 </script>
 </body>
 </html>
