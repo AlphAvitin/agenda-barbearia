@@ -3,104 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Barbearia — Agendamento Online</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Work+Sans:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<title>Agenda Barbearia</title>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --bg: #121214; --bg-raised: #1A1A1E; --gold: #D4AF37; --paper: #F4F4F5; --line: rgba(244,244,245,0.1); }
-  body{ background: var(--bg); color: var(--paper); font-family:'Work Sans', sans-serif; padding-bottom: 120px; }
+  :root{ --bg: #121214; --gold: #D4AF37; --paper: #F4F4F5; }
+  body{ background: var(--bg); color: var(--paper); font-family: 'Work Sans', sans-serif; padding: 20px; }
   
-  .cat-title{ font-family:'Fraunces', serif; font-size: 19px; color: var(--gold); margin: 20px 20px 10px; display:flex; align-items:center; gap:10px; }
-  .cat-title::after{ content:""; flex:1; height:1px; background: var(--line); }
-
-  /* Galeria de Fotos */
-  .photo-gallery { display: flex; gap: 10px; padding: 0 20px; overflow-x: auto; margin-bottom: 10px; }
-  .photo-gallery img { width: 120px; height: 120px; border-radius: 12px; object-fit: cover; border: 2px solid transparent; }
-  .service-card { background: var(--bg-raised); border: 1px solid var(--line); border-radius: 12px; margin: 0 20px 15px; padding: 16px; cursor: pointer; }
+  .cat-title{ color: var(--gold); font-weight: 600; margin-top: 20px; margin-bottom: 10px; }
+  
+  .service-card { background: #1A1A1E; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
   .service-card.selected { border: 2px solid var(--gold); }
-  .service-header { display: flex; justify-content: space-between; align-items: center; }
-  .price { font-family: 'JetBrains Mono', monospace; color: var(--gold); font-weight: bold; }
   
-  /* Mantém o resto do estilo anterior igual... */
-  .barber-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 20px; }
-  .barber-card { background: var(--bg-raised); padding: 14px; text-align: center; border-radius: 12px; border: 1px solid var(--line); }
-  .barber-card.selected { border-color: var(--gold); }
-  .form-section { background: var(--bg-raised); border-radius: 12px; padding: 16px; margin: 0 20px; }
-  .app-input { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px; color: white; width: 100%; margin-top: 5px; }
-  .booking-bar { position: fixed; left: 16px; right: 16px; bottom: 16px; background: var(--gold); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: black; z-index: 100; }
-  .booking-bar button { background: black; color: var(--gold); border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+  .photo-gallery { display: flex; gap: 8px; overflow-x: auto; margin-top: 10px; }
+  .photo-gallery img { width: 100px; height: 100px; border-radius: 8px; object-fit: cover; }
+  
+  .form-group { margin-top: 15px; }
+  .app-input { background: #1A1A1E; border: 1px solid #333; color: white; padding: 12px; width: 100%; border-radius: 8px; margin-top: 5px; }
+  
+  .booking-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gold); padding: 15px; text-align: center; font-weight: bold; color: black; }
 </style>
 </head>
 <body>
 
-<section>
-  <div class="cat-title">1. Escolha o Estilo</div>
-  
-  <!-- Categoria Corte -->
-  <div class="service-card selected" onclick="selectService(this, 'Corte Degrade', 35.00)">
-    <div class="service-header">
-      <h3>Corte Degradê Moderno</h3>
-      <span class="price">R$ 35,00</span>
-    </div>
-    <!-- Galeria de Fotos do Corte -->
-    <div class="photo-gallery">
-      <img src="https://images.unsplash.com/photo-1599351431202-180f0b484501?auto=format&fit=crop&w=300" alt="Corte 1">
-      <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=300" alt="Corte 2">
-      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300" alt="Corte 3">
-    </div>
+<h2 style="color:var(--gold)">Agendamento Online</h2>
+
+<div class="service-card" onclick="selectService(this, 'Corte Degrade', 35)">
+  <h3>Corte Degradê Moderno — R$ 35,00</h3>
+  <div class="photo-gallery">
+    <img src="https://images.unsplash.com/photo-1503951914875-452162b09f6f?w=200" alt="Corte">
+    <img src="https://images.unsplash.com/photo-1599351431202-180f0b484501?w=200" alt="Corte">
   </div>
+</div>
 
-  <!-- Categoria Barba -->
-  <div class="service-card" onclick="selectService(this, 'Barba Premium', 25.00)">
-    <div class="service-header">
-      <h3>Barba Premium (Toalha Quente)</h3>
-      <span class="price">R$ 25,00</span>
-    </div>
-    <div class="photo-gallery">
-      <img src="https://images.unsplash.com/photo-1577717903315-16919e526e15?auto=format&fit=crop&w=300" alt="Barba 1">
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=300" alt="Barba 2">
-    </div>
+<div class="service-card" onclick="selectService(this, 'Barba Premium', 25)">
+  <h3>Barba Premium — R$ 25,00</h3>
+  <div class="photo-gallery">
+    <img src="https://images.unsplash.com/photo-1577717903315-16919e526e15?w=200" alt="Barba">
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=200" alt="Barba">
   </div>
-</section>
-
-<div class="cat-title">2. Profissional</div>
-<div class="barber-grid">
-  <div class="barber-card selected" onclick="selectBarber(this, 'Marcos Silva')">✂️ Marcos Silva</div>
-  <div class="barber-card" onclick="selectBarber(this, 'Lucas Oliveira')">💈 Lucas Oliveira</div>
 </div>
 
-<div class="cat-title">3. Agendar</div>
-<div class="form-section">
-  <input type="text" id="clientName" class="app-input" placeholder="Seu Nome">
-  <input type="text" id="clientTime" class="app-input" placeholder="Melhor horário (ex: 15h)">
-</div>
+<div class="cat-title">Seus Dados</div>
+<input type="text" id="name" class="app-input" placeholder="Seu Nome">
+<input type="text" id="time" class="app-input" placeholder="Horário (ex: 15:00)">
 
-<div class="booking-bar">
-  <span id="barTotal">R$ 35,00</span>
-  <button onclick="sendBooking()">Confirmar via WhatsApp</button>
-</div>
+<div class="booking-bar" onclick="sendBooking()">Confirmar Agendamento</div>
 
 <script>
-  let currentService = "Corte Degrade";
-  let currentPrice = 35.00;
-  let currentBarber = "Marcos Silva";
-
+  let service = "Corte Degrade";
   function selectService(el, name, price) {
     document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
-    currentService = name; currentPrice = price;
-    document.getElementById('barTotal').textContent = "R$ " + price.toFixed(2).replace('.', ',');
+    service = name;
   }
-  
-  function selectBarber(el, name) {
-    document.querySelectorAll('.barber-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    currentBarber = name;
-  }
-
   function sendBooking() {
-    const name = document.getElementById('clientName').value;
-    const time = document.getElementById('clientTime').value;
-    const msg = `📅 Agendamento: ${currentService} com ${currentBarber}. Cliente: ${name}, Horário: ${time}. Confirma?`;
+    const name = document.getElementById('name').value;
+    const time = document.getElementById('time').value;
+    const msg = `Agendamento: ${service}. Cliente: ${name}, Horário: ${time}`;
     window.open(`https://wa.me/5598982845481?text=${encodeURIComponent(msg)}`, '_blank');
   }
 </script>
