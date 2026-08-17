@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Administração — Barbearia</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#17140F;
+    --surface:#211D17;
+    --surface2:#2A241C;
+    --brass:#C6982B;
+    --brass-light:#E3BE5C;
+    --wine:#7A2E2E;
+    --wine-light:#9C4646;
+    --cream:#EDE4D3;
+    --muted:#9C9282;
+    --line:rgba(198,152,43,.25);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'Work Sans',sans-serif;
+    min-height:100vh;
+}
+
+.container{
+    width:min(1200px, calc(100% - 32px));
+    margin:auto;
+}
+
+/* HEADER */
+
+header{
+    background:rgba(23,20,15,.96);
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.header-inner{
+    min-height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:1.5rem;
+}
+
+.logo span{
+    color:var(--brass-light);
+}
+
+.site-btn{
+    display:inline-block;
+    text-decoration:none;
+    color:#17140F;
+    background:var(--brass);
+    padding:10px 18px;
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    border-radius:2px;
+}
+
+.site-btn:hover{
+    background:var(--brass-light);
+}
+
+/* TITLE */
+
+.page-title{
+    padding:45px 0 25px;
+}
+
+.page-title .eyebrow{
+    color:var(--brass-light);
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    font-size:.75rem;
+    margin-bottom:8px;
+}
+
+.page-title h1{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    font-size:clamp(2rem,5vw,3.2rem);
+}
+
+.page-title p{
+    color:var(--muted);
+    margin-top:8px;
+}
+
+/* CARDS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:30px;
+}
+
+.stat{
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:22px;
+}
+
+.stat-number{
+    display:block;
+    font-family:'Oswald',sans-serif;
+    font-size:2rem;
+    color:var(--brass-light);
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+}
+
+/* FILTROS */
+
+.filters{
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:20px;
+    margin-bottom:20px;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.filters label{
+    display:block;
+    color:var(--muted);
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:7px;
+}
+
+.filters input,
+.filters select{
+    width:100%;
+    background:var(--bg);
+    color:var(--cream);
+    border:1px solid var(--line);
+    padding:12px;
+    font-family:'Work Sans',sans-serif;
+    border-radius:2px;
+}
+
+.filters input:focus,
+.filters select:focus{
+    outline:none;
+    border-color:var(--brass);
+}
+
+.clear-btn{
+    align-self:end;
+    height:44px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--cream);
+    cursor:pointer;
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+}
+
+.clear-btn:hover{
+    border-color:var(--brass-light);
+    color:var(--brass-light);
+}
+
+/* TABELA */
+
+.table-wrapper{
+    background:var(--surface);
+    border:1px solid var(--line);
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+thead{
+    background:var(--surface2);
+}
+
+th{
+    padding:15px 12px;
+    text-align:left;
+    color:var(--brass-light);
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    font-size:.78rem;
+}
+
+td{
+    padding:14px 12px;
+    border-top:1px solid rgba(255,255,255,.05);
+    font-size:.85rem;
+}
+
+tr:hover td{
+    background:rgba(198,152,43,.035);
+}
+
+.status{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:2px;
+    font-size:.7rem;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+}
+
+.status.confirmado{
+    background:rgba(37,211,102,.12);
+    color:#25D366;
+}
+
+.status.cancelado{
+    background:rgba(156,70,70,.15);
+    color:#d88787;
+}
+
+.empty{
+    padding:45px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.loading{
+    color:var(--brass-light);
+}
+
+/* AÇÕES */
+
+.action-btn{
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--cream);
+    padding:7px 10px;
+    cursor:pointer;
+    font-size:.75rem;
+    margin-right:4px;
+}
+
+.action-btn:hover{
+    border-color:var(--brass-light);
+    color:var(--brass-light);
+}
+
+.action-btn.whatsapp{
+    border-color:#25D366;
+    color:#25D366;
+}
+
+.action-btn.cancel{
+    border-color:var(--wine-light);
+    color:#d88787;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .filters{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .container{
+        width:min(100% - 20px,1200px);
+    }
+
+    .header-inner{
+        min-height:70px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+    .page-title{
+        padding-top:30px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="container header-inner">
+
+    <div class="logo">
+        Navalha <span>de Ouro</span>
+    </div>
+
+    <a href="index.html" class="site-btn">
+        Voltar ao site
+    </a>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<section class="page-title">
+
+    <div class="eyebrow">
+        Administração
+    </div>
+
+    <h1>
+        Central de Agendamentos
+    </h1>
+
+    <p>
+        Gerencie os horários da barbearia em tempo real.
+    </p>
+
+</section>
+
+
+<section class="stats">
+
+    <div class="stat">
+        <span class="stat-number" id="totalAgendamentos">0</span>
+        <span class="stat-label">Total</span>
+    </div>
+
+    <div class="stat">
+        <span class="stat-number" id="totalConfirmados">0</span>
+        <span class="stat-label">Confirmados</span>
+    </div>
+
+    <div class="stat">
+        <span class="stat-number" id="totalHoje">0</span>
+        <span class="stat-label">Hoje</span>
+    </div>
+
+    <div class="stat">
+        <span class="stat-number" id="totalCancelados">0</span>
+        <span class="stat-label">Cancelados</span>
+    </div>
+
+</section>
+
+
+<section class="filters">
+
+    <div>
+        <label for="filtroData">
+            Data
+        </label>
+
+        <input
+            type="date"
+            id="filtroData"
+        >
+    </div>
+
+
+    <div>
+
+        <label for="filtroBarbeiro">
+            Barbeiro
+        </label>
+
+        <select id="filtroBarbeiro">
+
+            <option value="">
+                Todos
+            </option>
+
+            <option value="Marcos Silva">
+                Marcos Silva
+            </option>
+
+            <option value="Diego Alves">
+                Diego Alves
+            </option>
+
+            <option value="Rafael Costa">
+                Rafael Costa
+            </option>
+
+            <option value="Bruno Mendes">
+                Bruno Mendes
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div>
+
+        <label for="filtroStatus">
+            Status
+        </label>
+
+        <select id="filtroStatus">
+
+            <option value="">
+                Todos
+            </option>
+
+            <option value="confirmado">
+                Confirmados
+            </option>
+
+            <option value="cancelado">
+                Cancelados
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="clear-btn"
+        id="limparFiltros"
+    >
+        Limpar filtros
+    </button>
+
+</section>
+
+
+<section class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Data
+</th>
+
+<th>
+Horário
+</th>
+
+<th>
+Cliente
+</th>
+
+<th>
+Telefone
+</th>
+
+<th>
+Serviço
+</th>
+
+<th>
+Barbeiro
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Ações
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="listaAgendamentos">
+
+<tr>
+
+<td
+colspan="8"
+class="empty loading"
+>
+Carregando agendamentos...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+</main>
+
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-database-compat.js"></script>
+
+
+<script>
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyDt7X9Z0Q2fTCniU9wx2pSrbTB1-vjO55o",
+
+    authDomain:
+    "barbearia-5df07.firebaseapp.com",
+
+    databaseURL:
+    "https://barbearia-5df07-default-rtdb.firebaseio.com",
+
+    projectId:
+    "barbearia-5df07",
+
+    storageBucket:
+    "barbearia-5df07.firebasestorage.app",
+
+    messagingSenderId:
+    "191801759215",
+
+    appId:
+    "1:191801759215:web:0eaa4213c598ee2dc8121a",
+
+    measurementId:
+    "G-YWKMCEX4W2"
+
+};
+
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+
+let agendamentos = {};
+
+
+/*
+// ======================================================
+// PAINEL ADMINISTRATIVO — AGENDAMENTOS EM TEMPO REAL
+// ======================================================
+
+const listaAgendamentos =
+    document.getElementById('listaAgendamentos');
+
+const filtroData =
+    document.getElementById('filtroData');
+
+const filtroBarbeiro =
+    document.getElementById('filtroBarbeiro');
+
+const filtroStatus =
+    document.getElementById('filtroStatus');
+
+
+// ======================================================
+// DATA ATUAL
+// ======================================================
+
+function dataHoje(){
+
+    const agora = new Date();
+
+    const ano = agora.getFullYear();
+
+    const mes = String(
+        agora.getMonth() + 1
+    ).padStart(2,'0');
+
+    const dia = String(
+        agora.getDate()
+    ).padStart(2,'0');
+
+    return `${ano}-${mes}-${dia}`;
+
+}
+
+
+// ======================================================
+// FORMATAR DATA
+// ======================================================
+
+function formatarData(data){
+
+    if(!data){
+        return '-';
+    }
+
+    const partes = data.split('-');
+
+    if(partes.length !== 3){
+        return data;
+    }
+
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+}
+
+
+// ======================================================
+// CRIAR LINK DO WHATSAPP
+// ======================================================
+
+function linkWhatsApp(agendamento){
+
+    let telefone =
+        String(
+            agendamento.telefone || ''
+        ).replace(/\D/g,'');
+
+
+    if(!telefone){
+        return '#';
+    }
+
+
+    /*
+        Caso o cliente tenha informado
+        apenas DDD + número, adicionamos
+        o código do Brasil.
+    */
+
+    if(!telefone.startsWith('55')){
+
+        telefone =
+            '55' + telefone;
+
+    }
+
+
+    const mensagem =
+
+`Olá, ${agendamento.nome}! 👋
+
+Seu agendamento na Navalha de Ouro está confirmado. ✂️
+
+📅 Data: ${formatarData(agendamento.data)}
+⏰ Horário: ${agendamento.hora}
+💈 Serviço: ${agendamento.servico}
+🧔 Barbeiro: ${agendamento.barbeiro}
+🎫 Código: ${agendamento.id}
+
+Pedimos que chegue com 5 minutos de antecedência.
+
+Até lá!`;
+
+
+    return (
+        'https://wa.me/' +
+        telefone +
+        '?text=' +
+        encodeURIComponent(mensagem)
+    );
+
+}
+
+
+// ======================================================
+// CANCELAR AGENDAMENTO
+// ======================================================
+
+async function cancelarAgendamento(chave){
+
+    const agendamento =
+        agendamentos[chave];
+
+
+    if(!agendamento){
+        return;
+    }
+
+
+    const confirmar =
+        confirm(
+            `Deseja cancelar o agendamento de ${agendamento.nome} às ${agendamento.hora}?`
+        );
+
+
+    if(!confirmar){
+        return;
+    }
+
+
+    try{
+
+        await db
+            .ref(
+                'agendamentos/' +
+                chave
+            )
+            .update({
+
+                status:
+                    'cancelado',
+
+                canceladoEm:
+                    new Date().toISOString()
+
+            });
+
+
+        alert(
+            'Agendamento cancelado com sucesso.'
+        );
+
+
+    }catch(erro){
+
+        console.error(
+            erro
+        );
+
+
+        alert(
+            'Não foi possível cancelar o agendamento.'
+        );
+
+    }
+
+}
+
+
+// ======================================================
+// DISPONIBILIZAR PARA OS BOTÕES HTML
+// ======================================================
+
+window.cancelarAgendamento =
+    cancelarAgendamento;
+
+
+// ======================================================
+// RENDERIZAR AGENDAMENTOS
+// ======================================================
+
+function renderizarAgendamentos(){
+
+    const dataSelecionada =
+        filtroData.value;
+
+    const barbeiroSelecionado =
+        filtroBarbeiro.value;
+
+    const statusSelecionado =
+        filtroStatus.value;
+
+
+    const lista =
+        Object.entries(
+            agendamentos
+        )
+        .map(
+            ([chave, dados]) => ({
+
+                chave,
+                ...dados
+
+            })
+        );
+
+
+    // ==================================================
+    // ESTATÍSTICAS
+    // ==================================================
+
+    const total =
+        lista.length;
+
+
+    const confirmados =
+        lista.filter(
+            item =>
+                item.status ===
+                'confirmado'
+        ).length;
+
+
+    const cancelados =
+        lista.filter(
+            item =>
+                item.status ===
+                'cancelado'
+        ).length;
+
+
+    const hoje =
+        lista.filter(
+            item =>
+
+                item.data ===
+                dataHoje()
+
+                &&
+
+                item.status !==
+                'cancelado'
+
+        ).length;
+
+
+    document.getElementById(
+        'totalAgendamentos'
+    ).textContent = total;
+
+
+    document.getElementById(
+        'totalConfirmados'
+    ).textContent = confirmados;
+
+
+    document.getElementById(
+        'totalHoje'
+    ).textContent = hoje;
+
+
+    document.getElementById(
+        'totalCancelados'
+    ).textContent = cancelados;
+
+
+    // ==================================================
+    // FILTROS
+    // ==================================================
+
+    const filtrados =
+        lista.filter(item => {
+
+
+            if(
+                dataSelecionada &&
+                item.data !==
+                dataSelecionada
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                barbeiroSelecionado &&
+                item.barbeiro !==
+                barbeiroSelecionado
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                statusSelecionado &&
+                item.status !==
+                statusSelecionado
+            ){
+
+                return false;
+
+            }
+
+
+            return true;
+
+        });
+
+
+    // ==================================================
+    // ORDENAR POR DATA E HORÁRIO
+    // ==================================================
+
+    filtrados.sort(
+        (a,b) => {
+
+            const dataA =
+                `${a.data || ''} ${a.hora || ''}`;
+
+            const dataB =
+                `${b.data || ''} ${b.hora || ''}`;
+
+            return dataA.localeCompare(
+                dataB
+            );
+
+        }
+    );
+
+
+    // ==================================================
+    // NENHUM AGENDAMENTO
+    // ==================================================
+
+    if(
+        filtrados.length === 0
+    ){
+
+        listaAgendamentos.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty"
+                >
+
+                    Nenhum agendamento
+                    encontrado.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    // ==================================================
+    // MONTAR TABELA
+    // ==================================================
+
+    listaAgendamentos.innerHTML =
+        filtrados.map(
+            item => {
+
+
+                const status =
+                    item.status ||
+                    'confirmado';
+
+
+                const whatsapp =
+                    linkWhatsApp(
+                        item
+                    );
+
+
+                const botaoCancelar =
+                    status !== 'cancelado'
+
+                    ?
+
+                    `
+
+                    <button
+                        class="action-btn cancel"
+                        onclick="cancelarAgendamento('${item.chave}')"
+                    >
+
+                        Cancelar
+
+                    </button>
+
+                    `
+
+                    :
+
+                    '';
+
+
+                return `
+
+                <tr>
+
+                    <td>
+
+                        ${
+                            formatarData(
+                                item.data
+                            )
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+
+                            ${
+                                item.hora ||
+                                '-'
+                            }
+
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            item.nome ||
+                            '-'
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            item.telefone ||
+                            '-'
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            item.servico ||
+                            '-'
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            item.barbeiro ||
+                            '-'
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="status ${status}"
+                        >
+
+                            ${status}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            whatsapp !== '#'
+
+                            ?
+
+                            `
+
+                            <a
+                                href="${whatsapp}"
+                                target="_blank"
+                                rel="noopener"
+                                class="action-btn whatsapp"
+                            >
+
+                                WhatsApp
+
+                            </a>
+
+                            `
+
+                            :
+
+                            ''
+
+                        }
+
+
+                        ${botaoCancelar}
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        )
+        .join('');
+
+}
+
+
+// ======================================================
+// ESCUTAR O FIREBASE EM TEMPO REAL
+// ======================================================
+
+db.ref(
+    'agendamentos'
+)
+.on(
+    'value',
+
+    snapshot => {
+
+        agendamentos =
+            snapshot.val() ||
+            {};
+
+
+        renderizarAgendamentos();
+
+    },
+
+    erro => {
+
+        console.error(
+            'Erro Firebase:',
+            erro
+        );
+
+
+        listaAgendamentos.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty"
+                >
+
+                    Erro ao conectar
+                    ao Firebase.
+
+                    <br><br>
+
+                    ${
+                        erro.message ||
+                        ''
+                    }
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+);
+
+
+// ======================================================
+// FILTROS
+// ======================================================
+
+filtroData.addEventListener(
+    'change',
+    renderizarAgendamentos
+);
+
+
+filtroBarbeiro.addEventListener(
+    'change',
+    renderizarAgendamentos
+);
+
+
+filtroStatus.addEventListener(
+    'change',
+    renderizarAgendamentos
+);
+
+
+// ======================================================
+// LIMPAR FILTROS
+// ======================================================
+
+document.getElementById(
+    'limparFiltros'
+)
+.addEventListener(
+    'click',
+
+    () => {
+
+        filtroData.value =
+            '';
+
+        filtroBarbeiro.value =
+            '';
+
+        filtroStatus.value =
+            '';
+
+        renderizarAgendamentos();
+
+    }
+
+);<!--  -->
