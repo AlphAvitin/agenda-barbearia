@@ -719,7 +719,12 @@
         tx.set(ref, novo);
       });
     }catch(err){
-      msg.textContent = 'Esse horário acabou de ser reservado. Escolha outro.';
+      if(err.message === 'ocupado'){
+        msg.textContent = 'Esse horário acabou de ser reservado. Escolha outro.';
+      } else {
+        msg.textContent = 'Erro ao salvar (' + err.code + '): ' + err.message;
+        console.error('Erro Firestore:', err);
+      }
       msg.classList.add('err');
       return;
     }
