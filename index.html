@@ -3,250 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Barbearia Imperial — Agendamento Online</title>
+<title>Barbearia Imperial — Agendamento</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg: #09090B;
-    --card-bg: #18181B;
-    --gold: #D4AF37;
-    --gold-hover: #AA8C2C;
-    --paper: #FAFAFA;
-    --muted: #A1A1AA;
-    --line: rgba(255,255,255,0.08);
-  }
+  :root{ --bg: #09090B; --card-bg: #18181B; --gold: #D4AF37; --paper: #FAFAFA; --muted: #A1A1AA; --line: rgba(255,255,255,0.08); }
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    background: var(--bg);
-    color: var(--paper);
-    font-family: 'Work Sans', sans-serif;
-    padding-bottom: 110px;
-  }
+  body{ background: var(--bg); color: var(--paper); font-family: 'Work Sans', sans-serif; padding-bottom: 120px; }
   
-  .hero {
-    background: linear-gradient(180deg, rgba(212,175,55,0.15) 0%, rgba(9,9,11,1) 100%);
-    padding: 30px 20px 20px;
-    text-align: center;
-    border-bottom: 1px solid var(--line);
-  }
-  .hero h1 { font-family: 'Fraunces', serif; font-size: 26px; color: var(--paper); }
+  .hero { background: linear-gradient(180deg, rgba(212,175,55,0.15) 0%, rgba(9,9,11,1) 100%); padding: 30px 20px; text-align: center; border-bottom: 1px solid var(--line); }
+  .hero h1 { font-family: 'Fraunces', serif; font-size: 24px; color: var(--paper); }
   .hero h1 span { color: var(--gold); }
-  .hero p { font-size: 13px; color: var(--muted); margin-top: 6px; }
-
+  
   section { padding: 20px; }
-  .section-title {
-    font-family: 'Fraunces', serif; font-size: 18px; color: var(--gold);
-    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
-  }
+  .section-title { font-family: 'Fraunces', serif; font-size: 18px; color: var(--gold); margin-bottom: 15px; }
 
-  /* Serviços */
-  .service-card {
-    background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px;
-    overflow: hidden; margin-bottom: 14px; cursor: pointer; transition: all 0.2s ease;
-  }
-  .service-card.selected { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-  .service-img { width: 100%; height: 130px; object-fit: cover; }
-  .service-content { padding: 14px; display: flex; justify-content: space-between; align-items: center; }
-  .service-info h3 { font-size: 15px; font-weight: 600; }
-  .service-info p { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .service-price { font-family: 'Courier New', monospace; font-size: 15px; font-weight: bold; color: var(--gold); }
-
-  /* Barbeiros */
-  .barber-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .barber-card {
-    background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px;
-    padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s ease;
-  }
-  .barber-card.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
-  .barber-icon { font-size: 24px; margin-bottom: 4px; }
-  .barber-name { font-size: 13.5px; font-weight: 600; }
-
-  /* Datas e Horários em Grade */
+  /* Grade de Horários (08h às 20h) */
   .slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .slot-btn {
-    background: var(--card-bg); border: 1px solid var(--line); border-radius: 8px;
-    color: var(--paper); padding: 10px 4px; font-size: 13px; font-weight: 500;
-    text-align: center; cursor: pointer; font-family: monospace;
+    background: var(--card-bg); border: 1px solid var(--line); color: var(--paper);
+    padding: 10px 4px; font-size: 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s;
   }
   .slot-btn.selected { background: var(--gold); color: #000; border-color: var(--gold); font-weight: bold; }
 
-  /* Formulário */
-  .form-box { background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
-  .form-group { margin-bottom: 12px; }
-  .form-group label { font-size: 11px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 5px; }
-  .app-input {
-    background: var(--bg); border: 1px solid var(--line); color: var(--paper);
-    padding: 12px; width: 100%; border-radius: 8px; font-size: 14px; outline: none;
-  }
-  .app-input:focus { border-color: var(--gold); }
-
-  /* Barra Fixa Inferior */
-  .bottom-bar {
-    position: fixed; bottom: 0; left: 0; width: 100%;
-    background: #111113; border-top: 1px solid var(--line);
-    padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 100;
-  }
-  .total-label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
-  .total-value { font-size: 18px; font-weight: bold; color: var(--gold); font-family: monospace; }
   .confirm-btn {
-    background: var(--gold); color: #000; border: none; padding: 12px 20px;
-    border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;
+    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gold); color: #000;
+    padding: 20px; border: none; font-size: 16px; font-weight: 700; cursor: pointer; z-index: 100;
   }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <h1>Barbearia <span>Imperial</span></h1>
-  <p>Estilo e tradição na palma da sua mão</p>
+<div class="hero"><h1>Barbearia <span>Imperial</span></h1></div>
+
+<section>
+  <div class="section-title">📅 Escolha o Horário (08:00 - 20:00)</div>
+  <div class="slots-grid" id="slotsGrid"></div>
+</section>
+
+<div class="section-title" style="margin-left:20px;">📋 Dados</div>
+<div style="padding: 0 20px;">
+  <input type="date" id="clientDate" style="background:#18181B; border:1px solid #333; color:white; padding:12px; width:100%; border-radius:8px; margin-bottom:10px;">
+  <input type="text" id="clientName" style="background:#18181B; border:1px solid #333; color:white; padding:12px; width:100%; border-radius:8px;" placeholder="Seu Nome">
 </div>
 
-<!-- Serviços -->
-<section>
-  <div class="section-title">✂️ 1. Escolha o Serviço</div>
-  <div class="service-card selected" onclick="selectService(this, 'Corte Degradê Moderno', 35.00)">
-    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&auto=format&fit=crop&q=80" alt="Corte" class="service-img">
-    <div class="service-content">
-      <div class="service-info">
-        <h3>Corte Degradê Moderno</h3>
-        <p>Acabamento na navalha + lavagem</p>
-      </div>
-      <div class="service-price">R$ 35,00</div>
-    </div>
-  </div>
-
-  <div class="service-card" onclick="selectService(this, 'Barba Completa Premium', 25.00)">
-    <img src="https://images.unsplash.com/photo-1503951914875-452162b09f6f?w=600&auto=format&fit=crop&q=80" alt="Barba" class="service-img">
-    <div class="service-content">
-      <div class="service-info">
-        <h3>Barba Completa Premium</h3>
-        <p>Toalha quente e óleos hidratantes</p>
-      </div>
-      <div class="service-price">R$ 25,00</div>
-    </div>
-  </div>
-</section>
-
-<!-- Barbeiros -->
-<section>
-  <div class="section-title">💈 2. Escolha o Profissional</div>
-  <div class="barber-grid">
-    <div class="barber-card selected" onclick="selectBarber(this, 'Marcos Silva')">
-      <div class="barber-icon">✂️</div>
-      <div class="barber-name">Marcos Silva</div>
-    </div>
-    <div class="barber-card" onclick="selectBarber(this, 'Lucas Oliveira')">
-      <div class="barber-icon">💈</div>
-      <div class="barber-name">Lucas Oliveira</div>
-    </div>
-  </div>
-</section>
-
-<!-- Data e Horários -->
-<section>
-  <div class="section-title">📅 3. Data e Horário</div>
-  
-  <div class="form-box" style="margin-bottom: 12px;">
-    <div class="form-group">
-      <label>Data do Atendimento</label>
-      <input type="date" id="clientDate" class="app-input">
-    </div>
-  </div>
-
-  <div style="font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.05em;">Horários Disponíveis:</div>
-  <div class="slots-grid">
-    <button class="slot-btn selected" onclick="selectSlot(this, '09:00')">09:00</button>
-    <button class="slot-btn" onclick="selectSlot(this, '10:00')">10:00</button>
-    <button class="slot-btn" onclick="selectSlot(this, '11:00')">11:00</button>
-    <button class="slot-btn" onclick="selectSlot(this, '14:00')">14:00</button>
-    <button class="slot-btn" onclick="selectSlot(this, '15:00')">15:00</button>
-    <button class="slot-btn" onclick="selectSlot(this, '16:00')">16:00</button>
-    <button class="slot-btn" onclick="selectSlot(this, '17:00')">17:00</button>
-    <button class="slot-btn" onclick="selectSlot(this, '18:00')">18:00</button>
-  </div>
-</section>
-
-<!-- Dados -->
-<section>
-  <div class="section-title">📋 4. Seus Dados</div>
-  <div class="form-box">
-    <div class="form-group">
-      <label>Seu Nome</label>
-      <input type="text" id="clientName" class="app-input" placeholder="Ex: Carlos Eduardo">
-    </div>
-  </div>
-</section>
-
-<!-- Barra Inferior -->
-<div class="bottom-bar">
-  <div>
-    <div class="total-label">Total</div>
-    <div class="total-value" id="barTotal">R$ 35,00</div>
-  </div>
-  <button class="confirm-btn" onclick="sendBooking()">Agendar no WhatsApp ↗</button>
-</div>
+<button class="confirm-btn" onclick="sendBooking()">CONFIRMAR AGENDAMENTO ↗</button>
 
 <script>
-  const WHATSAPP_NUMBER = "5598982845481";
-  let currentService = "Corte Degradê Moderno";
-  let currentPrice = 35.00;
-  let currentBarber = "Marcos Silva";
-  let currentTime = "09:00";
+  // Gerar horários automaticamente de 08:00 até 20:00 de 30 em 30 min
+  const grid = document.getElementById('slotsGrid');
+  let currentTime = null;
 
-  // Preenche a data de hoje automaticamente no campo de data
+  for (let h = 8; h <= 20; h++) {
+    for (let m = 0; m < 60; m += 30) {
+      if (h === 20 && m > 0) break; // Para exatamente às 20:00
+      const timeStr = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+      const btn = document.createElement('button');
+      btn.className = 'slot-btn';
+      btn.textContent = timeStr;
+      btn.onclick = function() {
+        document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        currentTime = timeStr;
+      };
+      grid.appendChild(btn);
+    }
+  }
+
   document.getElementById('clientDate').valueAsDate = new Date();
 
-  function selectService(el, name, price) {
-    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    currentService = name;
-    currentPrice = price;
-    document.getElementById('barTotal').textContent = "R$ " + price.toFixed(2).replace('.', ',');
-  }
-
-  function selectBarber(el, name) {
-    document.querySelectorAll('.barber-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    currentBarber = name;
-  }
-
-  function selectSlot(el, time) {
-    document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-    el.classList.add('selected');
-    currentTime = time;
-  }
-
   function sendBooking() {
-    const name = document.getElementById('clientName').value.trim();
+    const name = document.getElementById('clientName').value;
     const date = document.getElementById('clientDate').value;
-
-    if(!name) {
-      alert("Por favor, preencha o seu nome!");
-      return;
-    }
-
-    if(!date) {
-      alert("Por favor, selecione a data!");
-      return;
-    }
-
-    // Formata a data de YYYY-MM-DD para DD/MM/YYYY
-    const parts = date.split('-');
-    const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
-
-    let msg = `📅 *NOVO AGENDAMENTO*\n\n`;
-    msg += `✂️ *Serviço:* ${currentService}\n`;
-    msg += `💈 *Profissional:* ${currentBarber}\n`;
-    msg += `📆 *Data:* ${formattedDate}\n`;
-    msg += `⏰ *Horário:* ${currentTime}\n`;
-    msg += `👤 *Cliente:* ${name}\n`;
-    msg += `💰 *Valor:* R$ ${currentPrice.toFixed(2).replace('.', ',')}\n\n`;
-    msg += `Confirma meu horário?`;
-
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(msg);
-    window.open(url, '_blank');
+    if(!currentTime || !name) { alert("Selecione o horário e preencha seu nome!"); return; }
+    
+    const msg = `Agendamento Barbearia: ${name}, Data: ${date}, Horário: ${currentTime}`;
+    window.open(`https://wa.me/5598982845481?text=${encodeURIComponent(msg)}`, '_blank');
   }
 </script>
 </body>
-  </html>
-  
+</html>
