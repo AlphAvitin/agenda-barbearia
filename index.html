@@ -23,147 +23,75 @@
     padding-bottom: 110px;
   }
   
-  /* Cabeçalho */
   .hero {
     background: linear-gradient(180deg, rgba(212,175,55,0.15) 0%, rgba(9,9,11,1) 100%);
     padding: 30px 20px 20px;
     text-align: center;
     border-bottom: 1px solid var(--line);
   }
-  .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-size: 26px;
-    color: var(--paper);
-  }
+  .hero h1 { font-family: 'Fraunces', serif; font-size: 26px; color: var(--paper); }
   .hero h1 span { color: var(--gold); }
-  .hero p {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 6px;
-  }
+  .hero p { font-size: 13px; color: var(--muted); margin-top: 6px; }
 
   section { padding: 20px; }
   .section-title {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    color: var(--gold);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-family: 'Fraunces', serif; font-size: 18px; color: var(--gold);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
   }
 
-  /* Serviços com Fotos */
+  /* Serviços */
   .service-card {
-    background: var(--card-bg);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px;
+    overflow: hidden; margin-bottom: 14px; cursor: pointer; transition: all 0.2s ease;
   }
-  .service-card.selected {
-    border-color: var(--gold);
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
-  }
-  .service-img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-  }
-  .service-content {
-    padding: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  .service-card.selected { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+  .service-img { width: 100%; height: 130px; object-fit: cover; }
+  .service-content { padding: 14px; display: flex; justify-content: space-between; align-items: center; }
   .service-info h3 { font-size: 15px; font-weight: 600; }
   .service-info p { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .service-price {
-    font-family: 'Courier New', monospace;
-    font-size: 15px;
-    font-weight: bold;
-    color: var(--gold);
-  }
+  .service-price { font-family: 'Courier New', monospace; font-size: 15px; font-weight: bold; color: var(--gold); }
 
   /* Barbeiros */
-  .barber-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+  .barber-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .barber-card {
-    background: var(--card-bg);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 14px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s ease;
   }
-  .barber-card.selected {
-    border-color: var(--gold);
-    background: rgba(212, 175, 55, 0.05);
-  }
+  .barber-card.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
   .barber-icon { font-size: 24px; margin-bottom: 4px; }
   .barber-name { font-size: 13.5px; font-weight: 600; }
 
+  /* Datas e Horários em Grade */
+  .slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .slot-btn {
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: 8px;
+    color: var(--paper); padding: 10px 4px; font-size: 13px; font-weight: 500;
+    text-align: center; cursor: pointer; font-family: monospace;
+  }
+  .slot-btn.selected { background: var(--gold); color: #000; border-color: var(--gold); font-weight: bold; }
+
   /* Formulário */
-  .form-box {
-    background: var(--card-bg);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 16px;
-  }
+  .form-box { background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
   .form-group { margin-bottom: 12px; }
-  .form-group:last-child { margin-bottom: 0; }
-  .form-group label {
-    font-size: 11px;
-    text-transform: uppercase;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    display: block;
-    margin-bottom: 5px;
-  }
+  .form-group label { font-size: 11px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 5px; }
   .app-input {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    color: var(--paper);
-    padding: 12px;
-    width: 100%;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
+    background: var(--bg); border: 1px solid var(--line); color: var(--paper);
+    padding: 12px; width: 100%; border-radius: 8px; font-size: 14px; outline: none;
   }
   .app-input:focus { border-color: var(--gold); }
 
   /* Barra Fixa Inferior */
   .bottom-bar {
-    position: fixed;
-    bottom: 0; left: 0; width: 100%;
-    background: #111113;
-    border-top: 1px solid var(--line);
-    padding: 14px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background: #111113; border-top: 1px solid var(--line);
+    padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 100;
   }
   .total-label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
   .total-value { font-size: 18px; font-weight: bold; color: var(--gold); font-family: monospace; }
   .confirm-btn {
-    background: var(--gold);
-    color: #000;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.2s;
+    background: var(--gold); color: #000; border: none; padding: 12px 20px;
+    border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;
   }
-  .confirm-btn:hover { background: var(--gold-hover); }
 </style>
 </head>
 <body>
@@ -175,8 +103,7 @@
 
 <!-- Serviços -->
 <section>
-  <div class="section-title">✂️ Escolha o Serviço</div>
-
+  <div class="section-title">✂️ 1. Escolha o Serviço</div>
   <div class="service-card selected" onclick="selectService(this, 'Corte Degradê Moderno', 35.00)">
     <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&auto=format&fit=crop&q=80" alt="Corte" class="service-img">
     <div class="service-content">
@@ -202,7 +129,7 @@
 
 <!-- Barbeiros -->
 <section>
-  <div class="section-title">💈 Escolha o Profissional</div>
+  <div class="section-title">💈 2. Escolha o Profissional</div>
   <div class="barber-grid">
     <div class="barber-card selected" onclick="selectBarber(this, 'Marcos Silva')">
       <div class="barber-icon">✂️</div>
@@ -215,17 +142,37 @@
   </div>
 </section>
 
+<!-- Data e Horários -->
+<section>
+  <div class="section-title">📅 3. Data e Horário</div>
+  
+  <div class="form-box" style="margin-bottom: 12px;">
+    <div class="form-group">
+      <label>Data do Atendimento</label>
+      <input type="date" id="clientDate" class="app-input">
+    </div>
+  </div>
+
+  <div style="font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.05em;">Horários Disponíveis:</div>
+  <div class="slots-grid">
+    <button class="slot-btn selected" onclick="selectSlot(this, '09:00')">09:00</button>
+    <button class="slot-btn" onclick="selectSlot(this, '10:00')">10:00</button>
+    <button class="slot-btn" onclick="selectSlot(this, '11:00')">11:00</button>
+    <button class="slot-btn" onclick="selectSlot(this, '14:00')">14:00</button>
+    <button class="slot-btn" onclick="selectSlot(this, '15:00')">15:00</button>
+    <button class="slot-btn" onclick="selectSlot(this, '16:00')">16:00</button>
+    <button class="slot-btn" onclick="selectSlot(this, '17:00')">17:00</button>
+    <button class="slot-btn" onclick="selectSlot(this, '18:00')">18:00</button>
+  </div>
+</section>
+
 <!-- Dados -->
 <section>
-  <div class="section-title">📋 Seus Dados</div>
+  <div class="section-title">📋 4. Seus Dados</div>
   <div class="form-box">
     <div class="form-group">
       <label>Seu Nome</label>
       <input type="text" id="clientName" class="app-input" placeholder="Ex: Carlos Eduardo">
-    </div>
-    <div class="form-group" style="margin-top: 12px;">
-      <label>Horário Desejado</label>
-      <input type="text" id="clientTime" class="app-input" placeholder="Ex: Hoje às 16:30">
     </div>
   </div>
 </section>
@@ -244,6 +191,10 @@
   let currentService = "Corte Degradê Moderno";
   let currentPrice = 35.00;
   let currentBarber = "Marcos Silva";
+  let currentTime = "09:00";
+
+  // Preenche a data de hoje automaticamente no campo de data
+  document.getElementById('clientDate').valueAsDate = new Date();
 
   function selectService(el, name, price) {
     document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
@@ -259,20 +210,36 @@
     currentBarber = name;
   }
 
+  function selectSlot(el, time) {
+    document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    currentTime = time;
+  }
+
   function sendBooking() {
     const name = document.getElementById('clientName').value.trim();
-    const time = document.getElementById('clientTime').value.trim();
+    const date = document.getElementById('clientDate').value;
 
-    if(!name || !time) {
-      alert("Por favor, preencha seu nome e o horário desejado!");
+    if(!name) {
+      alert("Por favor, preencha o seu nome!");
       return;
     }
+
+    if(!date) {
+      alert("Por favor, selecione a data!");
+      return;
+    }
+
+    // Formata a data de YYYY-MM-DD para DD/MM/YYYY
+    const parts = date.split('-');
+    const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
 
     let msg = `📅 *NOVO AGENDAMENTO*\n\n`;
     msg += `✂️ *Serviço:* ${currentService}\n`;
     msg += `💈 *Profissional:* ${currentBarber}\n`;
+    msg += `📆 *Data:* ${formattedDate}\n`;
+    msg += `⏰ *Horário:* ${currentTime}\n`;
     msg += `👤 *Cliente:* ${name}\n`;
-    msg += `⏰ *Horário:* ${time}\n`;
     msg += `💰 *Valor:* R$ ${currentPrice.toFixed(2).replace('.', ',')}\n\n`;
     msg += `Confirma meu horário?`;
 
@@ -281,4 +248,5 @@
   }
 </script>
 </body>
-</html>
+  </html>
+  
