@@ -7,39 +7,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{ --bg: #121214; --gold: #D4AF37; --paper: #F4F4F5; }
-  body{ background: var(--bg); color: var(--paper); font-family: 'Work Sans', sans-serif; padding: 20px; }
+  body{ background: var(--bg); color: var(--paper); font-family: 'Work Sans', sans-serif; padding: 20px; margin: 0; }
   
-  .cat-title{ color: var(--gold); font-weight: 600; margin-top: 20px; margin-bottom: 10px; }
+  .cat-title{ color: var(--gold); font-weight: 600; margin-top: 25px; margin-bottom: 15px; text-transform: uppercase; font-size: 14px; }
   
-  .service-card { background: #1A1A1E; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+  .service-card { 
+    background: #1A1A1E; border: 1px solid #333; border-radius: 12px; 
+    padding: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px;
+  }
   .service-card.selected { border: 2px solid var(--gold); }
+  .icon-box { font-size: 30px; background: #25252a; padding: 10px; border-radius: 10px; }
   
-  .photo-gallery { display: flex; gap: 8px; overflow-x: auto; margin-top: 10px; }
-  .photo-gallery img { width: 100px; height: 100px; border-radius: 8px; object-fit: cover; }
+  .app-input { background: #1A1A1E; border: 1px solid #333; color: white; padding: 15px; width: 100%; border-radius: 8px; margin-top: 10px; font-size: 16px; }
   
-  .form-group { margin-top: 15px; }
-  .app-input { background: #1A1A1E; border: 1px solid #333; color: white; padding: 12px; width: 100%; border-radius: 8px; margin-top: 5px; }
-  
-  .booking-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gold); padding: 15px; text-align: center; font-weight: bold; color: black; }
+  .booking-bar { 
+    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gold); 
+    padding: 20px; text-align: center; font-weight: bold; color: black; font-size: 18px; cursor: pointer;
+  }
 </style>
 </head>
 <body>
 
-<h2 style="color:var(--gold)">Agendamento Online</h2>
+<h2 style="color:var(--gold); margin-bottom: 20px;">Agendamento Online</h2>
 
 <div class="service-card" onclick="selectService(this, 'Corte Degrade', 35)">
-  <h3>Corte Degradê Moderno — R$ 35,00</h3>
-  <div class="photo-gallery">
-    <img src="https://images.unsplash.com/photo-1503951914875-452162b09f6f?w=200" alt="Corte">
-    <img src="https://images.unsplash.com/photo-1599351431202-180f0b484501?w=200" alt="Corte">
+  <div class="icon-box">✂️</div>
+  <div>
+    <h3>Corte Degradê</h3>
+    <p>R$ 35,00</p>
   </div>
 </div>
 
 <div class="service-card" onclick="selectService(this, 'Barba Premium', 25)">
-  <h3>Barba Premium — R$ 25,00</h3>
-  <div class="photo-gallery">
-    <img src="https://images.unsplash.com/photo-1577717903315-16919e526e15?w=200" alt="Barba">
-    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=200" alt="Barba">
+  <div class="icon-box">💈</div>
+  <div>
+    <h3>Barba Premium</h3>
+    <p>R$ 25,00</p>
   </div>
 </div>
 
@@ -47,7 +50,8 @@
 <input type="text" id="name" class="app-input" placeholder="Seu Nome">
 <input type="text" id="time" class="app-input" placeholder="Horário (ex: 15:00)">
 
-<div class="booking-bar" onclick="sendBooking()">Confirmar Agendamento</div>
+<div style="height: 80px;"></div> <!-- Espaço para não cobrir o rodapé -->
+<div class="booking-bar" onclick="sendBooking()">CONFIRMAR AGENDAMENTO</div>
 
 <script>
   let service = "Corte Degrade";
@@ -59,6 +63,7 @@
   function sendBooking() {
     const name = document.getElementById('name').value;
     const time = document.getElementById('time').value;
+    if(!name || !time) { alert("Preencha o nome e horário!"); return; }
     const msg = `Agendamento: ${service}. Cliente: ${name}, Horário: ${time}`;
     window.open(`https://wa.me/5598982845481?text=${encodeURIComponent(msg)}`, '_blank');
   }
