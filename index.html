@@ -44,6 +44,7 @@
   .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
   ::selection{background:var(--brass); color:#17140F;}
 
+  /* focus visibility */
   a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
     outline:2px solid var(--brass-light);
     outline-offset:3px;
@@ -53,6 +54,7 @@
     *{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
   }
 
+  /* ---------- NAV ---------- */
   header{
     position:fixed; top:0; left:0; right:0; z-index:100;
     background:rgba(23,20,15,0.88);
@@ -78,6 +80,7 @@
     transition:background .2s;
   }
   .nav-cta:hover{background:var(--brass-light);}
+  .navlinks, .nav-cta{ }
   .menu-btn{display:none; background:none; border:none; color:var(--cream); font-size:1.6rem; cursor:pointer;}
   @media (max-width:820px){
     .navlinks{display:none;}
@@ -85,6 +88,7 @@
     .menu-btn{display:block;}
   }
 
+  /* ---------- HERO ---------- */
   .hero{
     position:relative;
     min-height:100vh;
@@ -148,12 +152,14 @@
   }
   .hero-stats div span{font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;}
 
+  /* ---------- SECTION HEADER ---------- */
   section{padding:110px 0;}
   .sec-head{max-width:640px; margin-bottom:56px;}
   .sec-head .eyebrow{margin-bottom:14px;}
   .sec-head h2{font-size:clamp(2rem,4vw,2.8rem);}
   .sec-head p{color:var(--muted); margin-top:14px; font-size:1rem;}
 
+  /* ---------- SERVICES ---------- */
   .services{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
   .serv-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);}
   .serv-card{
@@ -171,19 +177,25 @@
   .serv-card .price span{font-size:0.8rem; color:var(--muted); font-family:'Work Sans',sans-serif;}
   @media (max-width:820px){.serv-grid{grid-template-columns:1fr;}}
 
+  /* ---------- BARBERS ---------- */
   .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:28px;}
   .team-card{text-align:center;}
   .avatar{
     width:100%; aspect-ratio:1; border-radius:4px; margin-bottom:16px;
     background:var(--surface-2); border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center;
     position:relative; overflow:hidden;
+  }
+  .avatar img{width:100%; height:100%; object-fit:cover; display:block;}
+  .avatar-fallback{
+    display:flex; align-items:center; justify-content:center;
+    position:absolute; inset:0;
   }
   .avatar svg{width:52%; height:52%; color:var(--brass); opacity:0.85;}
   .team-card h3{font-size:1.05rem;}
   .team-card span{color:var(--muted); font-size:0.85rem;}
   @media (max-width:820px){.team-grid{grid-template-columns:repeat(2,1fr);}}
 
+  /* ---------- BOOKING ---------- */
   .booking{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
   .booking-layout{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
   @media (max-width:900px){.booking-layout{grid-template-columns:1fr;}}
@@ -214,6 +226,7 @@
   .form-msg.err{color:var(--wine-light);}
   .form-msg.ok{color:var(--brass-light);}
 
+  /* ticket / signature element */
   .ticket{
     background:var(--bg);
     border:1px dashed var(--line);
@@ -246,6 +259,7 @@
   }
   .ticket-hint{color:var(--muted); font-size:0.82rem; margin-top:10px; text-align:center;}
 
+  /* ---------- TESTIMONIALS ---------- */
   .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
   .test-card{
     background:var(--surface); border:1px solid var(--line); padding:28px; border-radius:4px;
@@ -255,6 +269,7 @@
   .test-card .who{margin-top:16px; color:var(--muted); font-size:0.82rem; text-transform:uppercase; letter-spacing:0.05em;}
   @media (max-width:820px){.test-grid{grid-template-columns:1fr;}}
 
+  /* ---------- SOCIAL ---------- */
   .social{
     background:linear-gradient(120deg, var(--surface), var(--surface-2));
     border-top:1px solid var(--line); border-bottom:1px solid var(--line);
@@ -269,6 +284,7 @@
   .social-link svg{width:20px; height:20px;}
   .social-link:hover{border-color:var(--brass-light); background:rgba(198,152,43,0.08); color:var(--brass-light);}
 
+  /* ---------- LOCATION / FOOTER ---------- */
   .loc-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
   @media (max-width:820px){.loc-grid{grid-template-columns:1fr;}}
   .hours-table{width:100%; border-collapse:collapse;}
@@ -374,22 +390,34 @@
     </div>
     <div class="team-grid">
       <div class="team-card">
-        <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round"/></svg></div>
+        <div class="avatar">
+          <img src="fotos/marcos.jpg" alt="Marcos Silva" onerror="this.style.display='none';">
+          <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round"/></svg></div>
+        </div>
         <h3>Marcos Silva</h3>
         <span>Cortes clássicos</span>
       </div>
       <div class="team-card">
-        <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round"/></svg></div>
+        <div class="avatar">
+          <img src="fotos/diego.jpg" alt="Diego Alves" onerror="this.style.display='none';">
+          <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round"/></svg></div>
+        </div>
         <h3>Diego Alves</h3>
         <span>Barba e navalha</span>
       </div>
       <div class="team-card">
-        <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round"/></svg></div>
+        <div class="avatar">
+          <img src="fotos/rafael.jpg" alt="Rafael Costa" onerror="this.style.display='none';">
+          <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round"/></svg></div>
+        </div>
         <h3>Rafael Costa</h3>
         <span>Cortes modernos</span>
       </div>
       <div class="team-card">
-        <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round"/></svg></div>
+        <div class="avatar">
+          <img src="fotos/bruno.jpg" alt="Bruno Mendes" onerror="this.style.display='none';">
+          <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round"/></svg></div>
+        </div>
         <h3>Bruno Mendes</h3>
         <span>Cor e platinado</span>
       </div>
@@ -484,7 +512,7 @@
     </div>
     <div class="test-grid">
       <div class="test-card">
-        <div class="stars">★★★★</div>
+        <div class="stars">★★★★★</div>
         <p>Corte no capricho e o horário marcado pelo site poupa a espera. Virei cliente fixo.</p>
         <div class="who">João Pereira</div>
       </div>
@@ -551,8 +579,28 @@
   Barbearia — Turilândia, MA · © 2026
 </footer>
 
+<!-- ================================================================
+     FIREBASE: cole aqui os dados do SEU projeto (console.firebase.google.com)
+     ================================================================ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDt7X9Z0Q2fTCniU9wx2pSrbTB1-vjO55o",
+    authDomain: "barbearia-5df07.firebaseapp.com",
+    projectId: "barbearia-5df07",
+    storageBucket: "barbearia-5df07.firebasestorage.app",
+    messagingSenderId: "191801759215",
+    appId: "1:191801759215:web:0eaa4213c598ee2dc8121a",
+    measurementId: "G-YWKMCEX4W2"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
 <script>
 (function(){
+  // ---------- build the next 14 valid days (skip Monday & Sunday) ----------
   const dataSelect = document.getElementById('data');
   const diasSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
   const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
@@ -561,7 +609,7 @@
   while(validDates.length < 10){
     d = new Date(d.getTime() + 86400000);
     const day = d.getDay();
-    if(day === 0 || day === 1) continue;
+    if(day === 0 || day === 1) continue; // fechado domingo e segunda
     const iso = d.toISOString().slice(0,10);
     const label = diasSemana[day] + ', ' + d.getDate() + ' ' + meses[d.getMonth()];
     validDates.push({iso, label});
@@ -572,9 +620,10 @@
     dataSelect.appendChild(opt);
   });
 
+  // ---------- time slots ----------
   const horarios = [];
   for(let h=9; h<19; h++){
-    if(h===12) continue;
+    if(h===12) continue; // almoço
     horarios.push(String(h).padStart(2,'0')+':00');
     horarios.push(String(h).padStart(2,'0')+':30');
   }
@@ -583,15 +632,14 @@
 
   let agendamentos = [];
 
-  async function loadAgendamentos(){
-    try{
-      const res = await window.storage.get('agendamentos', true);
-      agendamentos = res ? JSON.parse(res.value) : [];
-    }catch(e){
-      agendamentos = [];
-    }
+  // escuta o Firestore em tempo real: qualquer novo agendamento feito por
+  // outro cliente atualiza os horários ocupados na hora, sem recarregar a página
+  db.collection('agendamentos').onSnapshot(snapshot => {
+    agendamentos = snapshot.docs.map(doc => doc.data());
     renderSlots();
-  }
+  }, err => {
+    console.error('Erro ao conectar no Firestore:', err);
+  });
 
   function renderSlots(){
     slotsWrap.innerHTML = '';
@@ -656,22 +704,24 @@
     const servico = document.getElementById('servico').value;
     const barbeiro = document.getElementById('barbeiro').value;
     const data = dataSelect.value;
-
-    const conflito = agendamentos.some(a => a.data === data && a.hora === selectedSlot && barbeiro !== 'Sem preferência' && a.barbeiro === barbeiro);
-    if(conflito){
-      msg.textContent = 'Esse horário acabou de ser reservado. Escolha outro.';
-      msg.classList.add('err');
-      await loadAgendamentos();
-      return;
-    }
-
     const codigo = gerarCodigo();
     const novo = { id: codigo, nome, telefone, servico, barbeiro, data, hora: selectedSlot, criadoEm: new Date().toISOString() };
-    agendamentos.push(novo);
+
+    // id fixo por barbeiro+dia+hora: a transação só grava se esse documento
+    // ainda não existir, então dois clientes nunca conseguem confirmar o mesmo horário
+    const docId = (barbeiro + '_' + data + '_' + selectedSlot).replace(/[^a-zA-Z0-9_-]/g,'-');
+    const ref = db.collection('agendamentos').doc(docId);
 
     try{
-      await window.storage.set('agendamentos', JSON.stringify(agendamentos), true);
+      await db.runTransaction(async (tx) => {
+        const doc = await tx.get(ref);
+        if(doc.exists){ throw new Error('ocupado'); }
+        tx.set(ref, novo);
+      });
     }catch(err){
+      msg.textContent = 'Esse horário acabou de ser reservado. Escolha outro.';
+      msg.classList.add('err');
+      return;
     }
 
     document.getElementById('stamp').textContent = 'Confirmado';
@@ -680,14 +730,11 @@
     document.getElementById('tCode').textContent = codigo;
     msg.textContent = 'Horário reservado! Guarde o código da sua ficha.';
     msg.classList.add('ok');
-
-    renderSlots();
   });
 
-  loadAgendamentos();
   updateTicket();
 })();
-</script>
+</ script>
 
 </body>
-</html>
+</html>                                                                                      </html>
