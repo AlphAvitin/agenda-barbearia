@@ -1,30 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Administração — Barbearia</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Painel Administrativo | Barbearia Imperial</title>
 
 <style>
-
-:root{
-    --bg:#17140F;
-    --surface:#211D17;
-    --surface2:#2A241C;
-    --brass:#C6982B;
-    --brass-light:#E3BE5C;
-    --wine:#7A2E2E;
-    --wine-light:#9C4646;
-    --cream:#EDE4D3;
-    --muted:#9C9282;
-    --line:rgba(198,152,43,.25);
-}
 
 *{
     box-sizing:border-box;
@@ -33,289 +19,227 @@
 }
 
 body{
-    background:var(--bg);
-    color:var(--cream);
-    font-family:'Work Sans',sans-serif;
+    background:#17140F;
+    color:#EDE4D3;
+    font-family:Arial,sans-serif;
     min-height:100vh;
 }
 
 .container{
-    width:min(1200px, calc(100% - 32px));
+    width:95%;
+    max-width:1250px;
     margin:auto;
 }
 
-/* HEADER */
-
 header{
-    background:rgba(23,20,15,.96);
-    border-bottom:1px solid var(--line);
-    position:sticky;
-    top:0;
-    z-index:10;
+    background:#211D17;
+    border-bottom:1px solid #8F6D24;
 }
 
-.header-inner{
-    min-height:80px;
+.header{
+    min-height:75px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
+    gap:15px;
 }
 
 .logo{
-    font-family:'Oswald',sans-serif;
+    font-size:22px;
+    font-weight:bold;
     text-transform:uppercase;
-    letter-spacing:.06em;
-    font-size:1.5rem;
 }
 
 .logo span{
-    color:var(--brass-light);
+    color:#E3BE5C;
 }
 
-.site-btn{
-    display:inline-block;
-    text-decoration:none;
+.site-link{
+    background:#C6982B;
     color:#17140F;
-    background:var(--brass);
-    padding:10px 18px;
-    font-family:'Oswald',sans-serif;
+    padding:10px 15px;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:4px;
+}
+
+.hero{
+    padding:35px 0 20px;
+}
+
+.eyebrow{
+    color:#E3BE5C;
+    font-size:12px;
     text-transform:uppercase;
-    letter-spacing:.05em;
-    border-radius:2px;
-}
-
-.site-btn:hover{
-    background:var(--brass-light);
-}
-
-/* TITLE */
-
-.page-title{
-    padding:45px 0 25px;
-}
-
-.page-title .eyebrow{
-    color:var(--brass-light);
-    text-transform:uppercase;
-    letter-spacing:.2em;
-    font-size:.75rem;
+    letter-spacing:3px;
     margin-bottom:8px;
 }
 
-.page-title h1{
-    font-family:'Oswald',sans-serif;
+h1{
+    font-size:32px;
     text-transform:uppercase;
-    font-size:clamp(2rem,5vw,3.2rem);
 }
 
-.page-title p{
-    color:var(--muted);
+.hero p{
+    color:#9C9282;
     margin-top:8px;
 }
 
-/* CARDS */
+.firebase-status{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#211D17;
+    border:1px solid #8F6D24;
+    padding:14px;
+    margin-bottom:20px;
+}
+
+.status-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#777;
+}
+
+.status-dot.online{
+    background:#25D366;
+}
+
+.status-dot.error{
+    background:#D66B6B;
+}
 
 .stats{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin-bottom:30px;
+    gap:15px;
+    margin-bottom:20px;
 }
 
 .stat{
-    background:var(--surface);
-    border:1px solid var(--line);
-    padding:22px;
+    background:#211D17;
+    border:1px solid #8F6D24;
+    padding:20px;
 }
 
 .stat-number{
     display:block;
-    font-family:'Oswald',sans-serif;
-    font-size:2rem;
-    color:var(--brass-light);
+    font-size:32px;
+    font-weight:bold;
+    color:#E3BE5C;
 }
 
 .stat-label{
-    color:var(--muted);
-    font-size:.82rem;
+    color:#9C9282;
+    font-size:12px;
     text-transform:uppercase;
-    letter-spacing:.05em;
 }
-
-/* FILTROS */
 
 .filters{
-    background:var(--surface);
-    border:1px solid var(--line);
-    padding:20px;
-    margin-bottom:20px;
-
+    background:#211D17;
+    border:1px solid #8F6D24;
+    padding:18px;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:1fr 1fr 1fr auto;
     gap:12px;
+    margin-bottom:20px;
 }
 
-.filters label{
+.field label{
     display:block;
-    color:var(--muted);
-    font-size:.72rem;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-    margin-bottom:7px;
+    color:#9C9282;
+    font-size:12px;
+    margin-bottom:6px;
 }
 
-.filters input,
-.filters select{
+.field input,
+.field select{
     width:100%;
-    background:var(--bg);
-    color:var(--cream);
-    border:1px solid var(--line);
-    padding:12px;
-    font-family:'Work Sans',sans-serif;
-    border-radius:2px;
-}
-
-.filters input:focus,
-.filters select:focus{
-    outline:none;
-    border-color:var(--brass);
-}
-
-.clear-btn{
-    align-self:end;
     height:44px;
-    border:1px solid var(--line);
+    background:#17140F;
+    color:#EDE4D3;
+    border:1px solid #8F6D24;
+    padding:0 10px;
+}
+
+.button{
+    height:44px;
+    padding:0 16px;
     background:transparent;
-    color:var(--cream);
+    color:#EDE4D3;
+    border:1px solid #8F6D24;
     cursor:pointer;
-    font-family:'Oswald',sans-serif;
-    text-transform:uppercase;
-    letter-spacing:.05em;
 }
 
-.clear-btn:hover{
-    border-color:var(--brass-light);
-    color:var(--brass-light);
-}
-
-/* TABELA */
-
-.table-wrapper{
-    background:var(--surface);
-    border:1px solid var(--line);
+.table-box{
+    background:#211D17;
+    border:1px solid #8F6D24;
     overflow-x:auto;
+    margin-bottom:40px;
 }
 
 table{
     width:100%;
+    min-width:1050px;
     border-collapse:collapse;
-    min-width:900px;
-}
-
-thead{
-    background:var(--surface2);
 }
 
 th{
-    padding:15px 12px;
+    background:#2A241C;
+    color:#E3BE5C;
     text-align:left;
-    color:var(--brass-light);
-    font-family:'Oswald',sans-serif;
-    text-transform:uppercase;
-    letter-spacing:.05em;
-    font-size:.78rem;
+    padding:14px;
 }
 
 td{
-    padding:14px 12px;
-    border-top:1px solid rgba(255,255,255,.05);
-    font-size:.85rem;
-}
-
-tr:hover td{
-    background:rgba(198,152,43,.035);
-}
-
-.status{
-    display:inline-block;
-    padding:5px 9px;
-    border-radius:2px;
-    font-size:.7rem;
-    text-transform:uppercase;
-    letter-spacing:.05em;
-}
-
-.status.confirmado{
-    background:rgba(37,211,102,.12);
-    color:#25D366;
-}
-
-.status.cancelado{
-    background:rgba(156,70,70,.15);
-    color:#d88787;
+    padding:14px;
+    border-top:1px solid rgba(255,255,255,.06);
 }
 
 .empty{
-    padding:45px;
     text-align:center;
-    color:var(--muted);
+    padding:40px;
+    color:#9C9282;
 }
 
-.loading{
-    color:var(--brass-light);
+.badge{
+    padding:5px 9px;
+    font-size:11px;
+    text-transform:uppercase;
 }
 
-/* AÇÕES */
-
-.action-btn{
-    border:1px solid var(--line);
-    background:transparent;
-    color:var(--cream);
-    padding:7px 10px;
-    cursor:pointer;
-    font-size:.75rem;
-    margin-right:4px;
-}
-
-.action-btn:hover{
-    border-color:var(--brass-light);
-    color:var(--brass-light);
-}
-
-.action-btn.whatsapp{
-    border-color:#25D366;
+.badge.confirmado{
     color:#25D366;
 }
 
-.action-btn.cancel{
-    border-color:var(--wine-light);
-    color:#d88787;
+.badge.cancelado{
+    color:#D66B6B;
 }
 
-/* RESPONSIVO */
-
-@media(max-width:900px){
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .filters{
-        grid-template-columns:1fr 1fr;
-    }
-
+.action{
+    display:inline-block;
+    padding:7px 9px;
+    margin:2px;
+    background:transparent;
+    color:#EDE4D3;
+    border:1px solid #8F6D24;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:11px;
 }
 
-@media(max-width:600px){
+.action.whatsapp{
+    color:#25D366;
+    border-color:#25D366;
+}
 
-    .container{
-        width:min(100% - 20px,1200px);
-    }
+.action.cancel{
+    color:#D66B6B;
+    border-color:#D66B6B;
+}
 
-    .header-inner{
-        min-height:70px;
-    }
+@media(max-width:800px){
 
     .stats{
         grid-template-columns:1fr 1fr;
@@ -325,162 +249,218 @@ tr:hover td{
         grid-template-columns:1fr;
     }
 
-    .page-title{
-        padding-top:30px;
+    .header{
+        min-height:65px;
+    }
+
+    h1{
+        font-size:26px;
     }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
 
-<div class="container header-inner">
+<div class="container header">
 
-    <div class="logo">
-        Navalha <span>de Ouro</span>
-    </div>
+<div class="logo">
+Barbearia <span>Imperial</span>
+</div>
 
-    <a href="index.html" class="site-btn">
-        Voltar ao site
-    </a>
+<a href="index.html"
+class="site-link">
+← Voltar
+</a>
 
 </div>
 
 </header>
 
-
 <main class="container">
 
-<section class="page-title">
+<section class="hero">
 
-    <div class="eyebrow">
-        Administração
-    </div>
+<div class="eyebrow">
+Administração
+</div>
 
-    <h1>
-        Central de Agendamentos
-    </h1>
+<h1>
+Central de Agendamentos
+</h1>
 
-    <p>
-        Gerencie os horários da barbearia em tempo real.
-    </p>
+<p>
+Gerencie os horários da barbearia em tempo real.
+</p>
 
 </section>
 
+<div class="firebase-status">
+
+<span id="statusDot"
+class="status-dot">
+</span>
+
+<span id="firebaseStatus">
+Conectando ao Firebase...
+</span>
+
+</div>
 
 <section class="stats">
 
-    <div class="stat">
-        <span class="stat-number" id="totalAgendamentos">0</span>
-        <span class="stat-label">Total</span>
-    </div>
+<div class="stat">
 
-    <div class="stat">
-        <span class="stat-number" id="totalConfirmados">0</span>
-        <span class="stat-label">Confirmados</span>
-    </div>
+<span id="total"
+class="stat-number">
+0
+</span>
 
-    <div class="stat">
-        <span class="stat-number" id="totalHoje">0</span>
-        <span class="stat-label">Hoje</span>
-    </div>
+<span class="stat-label">
+Total
+</span>
 
-    <div class="stat">
-        <span class="stat-number" id="totalCancelados">0</span>
-        <span class="stat-label">Cancelados</span>
-    </div>
+</div>
 
-</section>
+<div class="stat">
 
+<span id="confirmados"
+class="stat-number">
+0
+</span>
+
+<span class="stat-label">
+Confirmados
+</span>
+
+</div>
+
+<div class="stat">
+
+<span id="hoje"
+class="stat-number">
+0
+</span>
+
+<span class="stat-label">
+Hoje
+</span>
+
+</div>
+
+<div class="stat">
+
+<span id="cancelados"
+class="stat-number">
+0
+</span>
+
+<span class="stat-label">
+Cancelados
+</span>
+
+</div>
+
+    </section>
+    <!-- =====================================================
+     FILTROS
+===================================================== -->
 
 <section class="filters">
 
-    <div>
-        <label for="filtroData">
-            Data
-        </label>
+<div class="field">
 
-        <input
-            type="date"
-            id="filtroData"
-        >
-    </div>
+<label for="filtroData">
+Data
+</label>
 
+<input
+type="date"
+id="filtroData">
 
-    <div>
-
-        <label for="filtroBarbeiro">
-            Barbeiro
-        </label>
-
-        <select id="filtroBarbeiro">
-
-            <option value="">
-                Todos
-            </option>
-
-            <option value="Marcos Silva">
-                Marcos Silva
-            </option>
-
-            <option value="Diego Alves">
-                Diego Alves
-            </option>
-
-            <option value="Rafael Costa">
-                Rafael Costa
-            </option>
-
-            <option value="Bruno Mendes">
-                Bruno Mendes
-            </option>
-
-        </select>
-
-    </div>
+</div>
 
 
-    <div>
+<div class="field">
 
-        <label for="filtroStatus">
-            Status
-        </label>
+<label for="filtroBarbeiro">
+Barbeiro
+</label>
 
-        <select id="filtroStatus">
+<select id="filtroBarbeiro">
 
-            <option value="">
-                Todos
-            </option>
+<option value="">
+Todos
+</option>
 
-            <option value="confirmado">
-                Confirmados
-            </option>
+<option value="Marcos Silva">
+Marcos Silva
+</option>
 
-            <option value="cancelado">
-                Cancelados
-            </option>
+<option value="Diego Alves">
+Diego Alves
+</option>
 
-        </select>
+<option value="Rafael Costa">
+Rafael Costa
+</option>
 
-    </div>
+<option value="Bruno Mendes">
+Bruno Mendes
+</option>
+
+</select>
+
+</div>
 
 
-    <button
-        type="button"
-        class="clear-btn"
-        id="limparFiltros"
-    >
-        Limpar filtros
-    </button>
+<div class="field">
+
+<label for="filtroStatus">
+Status
+</label>
+
+<select id="filtroStatus">
+
+<option value="">
+Todos
+</option>
+
+<option value="confirmado">
+Confirmados
+</option>
+
+<option value="cancelado">
+Cancelados
+</option>
+
+</select>
+
+</div>
+
+
+<button
+id="limpar"
+class="button"
+type="button">
+
+Limpar
+
+</button>
 
 </section>
 
 
-<section class="table-wrapper">
+<!-- =====================================================
+     TABELA DE AGENDAMENTOS
+===================================================== -->
+
+<section class="table-box">
 
 <table>
 
@@ -493,7 +473,7 @@ Data
 </th>
 
 <th>
-Horário
+Hora
 </th>
 
 <th>
@@ -513,6 +493,10 @@ Barbeiro
 </th>
 
 <th>
+Código
+</th>
+
+<th>
 Status
 </th>
 
@@ -525,15 +509,16 @@ Ações
 </thead>
 
 
-<tbody id="listaAgendamentos">
+<tbody id="lista">
 
 <tr>
 
 <td
-colspan="8"
-class="empty loading"
->
+colspan="9"
+class="empty">
+
 Carregando agendamentos...
+
 </td>
 
 </tr>
@@ -547,703 +532,964 @@ Carregando agendamentos...
 </main>
 
 
-<!-- FIREBASE -->
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
-<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
+<script
+src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js">
+</script>
 
-<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-database-compat.js"></script>
+<script
+src="https://www.gstatic.com/firebasejs/11.6.1/firebase-database-compat.js">
+</script>
 
 
 <script>
 
+'use strict';
+
+
+/* =====================================================
+   CONFIGURAÇÃO FIREBASE
+===================================================== */
+
 const firebaseConfig = {
 
-    apiKey:
-    "AIzaSyDt7X9Z0Q2fTCniU9wx2pSrbTB1-vjO55o",
+apiKey:
+"AIzaSyDt7X9Z0Q2fTCniU9wx2pSrbTB1-vjO55o",
 
-    authDomain:
-    "barbearia-5df07.firebaseapp.com",
+authDomain:
+"barbearia-5df07.firebaseapp.com",
 
-    databaseURL:
-    "https://barbearia-5df07-default-rtdb.firebaseio.com",
+databaseURL:
+"https://barbearia-5df07-default-rtdb.firebaseio.com",
 
-    projectId:
-    "barbearia-5df07",
+projectId:
+"barbearia-5df07",
 
-    storageBucket:
-    "barbearia-5df07.firebasestorage.app",
+storageBucket:
+"barbearia-5df07.firebasestorage.app",
 
-    messagingSenderId:
-    "191801759215",
+messagingSenderId:
+"191801759215",
 
-    appId:
-    "1:191801759215:web:0eaa4213c598ee2dc8121a",
+appId:
+"1:191801759215:web:0eaa4213c598ee2dc8121a",
 
-    measurementId:
-    "G-YWKMCEX4W2"
+measurementId:
+"G-YWKMCEX4W2"
 
 };
 
 
-firebase.initializeApp(firebaseConfig);
+/* =====================================================
+   VARIÁVEIS
+===================================================== */
 
-const db = firebase.database();
-
+let db = null;
 
 let agendamentos = {};
-  
-// ======================================================
-// PAINEL ADMINISTRATIVO — AGENDAMENTOS EM TEMPO REAL
-// ======================================================
 
-const listaAgendamentos =
-    document.getElementById('listaAgendamentos');
+
+/* =====================================================
+   ELEMENTOS DA PÁGINA
+===================================================== */
+
+const lista =
+document.getElementById("lista");
 
 const filtroData =
-    document.getElementById('filtroData');
+document.getElementById("filtroData");
 
 const filtroBarbeiro =
-    document.getElementById('filtroBarbeiro');
+document.getElementById("filtroBarbeiro");
 
 const filtroStatus =
-    document.getElementById('filtroStatus');
+document.getElementById("filtroStatus");
+
+const statusTexto =
+document.getElementById("firebaseStatus");
+
+const statusDot =
+document.getElementById("statusDot");
 
 
-// ======================================================
-// DATA ATUAL
-// ======================================================
+/* =====================================================
+   INICIALIZAR FIREBASE
+===================================================== */
 
-function dataHoje(){
+try {
 
-    const agora = new Date();
+firebase.initializeApp(firebaseConfig);
 
-    const ano = agora.getFullYear();
+db = firebase.database();
 
-    const mes = String(
-        agora.getMonth() + 1
-    ).padStart(2,'0');
+console.log("Firebase inicializado com sucesso.");
 
-    const dia = String(
-        agora.getDate()
-    ).padStart(2,'0');
+}
 
-    return `${ano}-${mes}-${dia}`;
+catch(error) {
+
+console.error(
+"Erro ao inicializar Firebase:",
+error
+);
+
+statusTexto.textContent =
+"Erro ao iniciar Firebase";
+
+statusDot.classList.add("error");
 
 }
 
 
-// ======================================================
-// FORMATAR DATA
-// ======================================================
+/* =====================================================
+   DATA ATUAL
+===================================================== */
+
+function hojeISO(){
+
+const agora = new Date();
+
+const ano =
+agora.getFullYear();
+
+const mes =
+String(
+agora.getMonth() + 1
+).padStart(2,"0");
+
+const dia =
+String(
+agora.getDate()
+).padStart(2,"0");
+
+return (
+ano +
+"-" +
+mes +
+"-" +
+dia
+);
+
+}
+
+
+/* =====================================================
+   FORMATAR DATA
+===================================================== */
 
 function formatarData(data){
 
-    if(!data){
-        return '-';
-    }
+if(!data){
 
-    const partes = data.split('-');
+return "-";
 
-    if(partes.length !== 3){
-        return data;
-    }
+}
 
-    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+const partes =
+String(data).split("-");
+
+if(partes.length !== 3){
+
+return data;
+
+}
+
+return (
+
+partes[2] +
+"/" +
+partes[1] +
+"/" +
+partes[0]
+
+);
 
 }
 
 
-// ======================================================
-// CRIAR LINK DO WHATSAPP
-// ======================================================
+/* =====================================================
+   PROTEGER TEXTO HTML
+===================================================== */
 
-function linkWhatsApp(agendamento){
+function escapar(valor){
 
-    let telefone =
-        String(
-            agendamento.telefone || ''
-        ).replace(/\D/g,'');
+if(
+valor === null ||
+valor === undefined
+){
+
+return "";
+
+}
+
+return String(valor)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
 
 
-    if(!telefone){
-        return '#';
-    }
+/* =====================================================
+   STATUS ONLINE
+===================================================== */
+
+function firebaseOnline(){
+
+statusTexto.textContent =
+"Firebase conectado — dados em tempo real";
+
+statusDot.classList.remove(
+"error"
+);
+
+statusDot.classList.add(
+"online"
+);
+
+}
 
 
-    /*
-        Caso o cliente tenha informado
-        apenas DDD + número, adicionamos
-        o código do Brasil.
-    */
+/* =====================================================
+   STATUS DE ERRO
+===================================================== */
 
-    if(!telefone.startsWith('55')){
+function firebaseErro(mensagem){
 
-        telefone =
-            '55' + telefone;
+statusTexto.textContent =
+"Erro no Firebase: " + mensagem;
 
-    }
+statusDot.classList.remove(
+"online"
+);
+
+statusDot.classList.add(
+"error"
+);
+
+}
 
 
-    const mensagem =
+/* =====================================================
+   FUNÇÃO DE ERRO NA TABELA
+===================================================== */
 
-`Olá, ${agendamento.nome}! 👋
+function mostrarErro(mensagem){
 
-Seu agendamento na Navalha de Ouro está confirmado. ✂️
+lista.innerHTML = `
+
+<tr>
+
+<td
+colspan="9"
+class="empty">
+
+${escapar(mensagem)}
+
+</td>
+
+</tr>
+
+`;
+
+}
+    <!-- =====================================================
+     LINK DO WHATSAPP
+===================================================== -->
+
+function criarLinkWhatsApp(agendamento){
+
+let telefone =
+String(
+agendamento.telefone || ""
+).replace(
+/\D/g,
+""
+);
+
+if(!telefone){
+
+return "";
+
+}
+
+if(!telefone.startsWith("55")){
+
+telefone =
+"55" + telefone;
+
+}
+
+
+const mensagem =
+
+`Olá, ${agendamento.nome || ""}! 👋
+
+Seu agendamento na Barbearia Imperial está confirmado. ✂️
 
 📅 Data: ${formatarData(agendamento.data)}
-⏰ Horário: ${agendamento.hora}
-💈 Serviço: ${agendamento.servico}
-🧔 Barbeiro: ${agendamento.barbeiro}
-🎫 Código: ${agendamento.id}
+⏰ Horário: ${agendamento.hora || ""}
+💈 Serviço: ${agendamento.servico || ""}
+🧔 Barbeiro: ${agendamento.barbeiro || ""}
+🎫 Código: ${agendamento.id || ""}
 
 Pedimos que chegue com 5 minutos de antecedência.
 
 Até lá!`;
 
 
-    return (
-        'https://wa.me/' +
-        telefone +
-        '?text=' +
-        encodeURIComponent(mensagem)
-    );
+return (
+"https://wa.me/" +
+telefone +
+"?text=" +
+encodeURIComponent(mensagem)
+);
 
 }
 
 
-// ======================================================
-// CANCELAR AGENDAMENTO
-// ======================================================
+/* =====================================================
+   RENDERIZAR AGENDAMENTOS
+===================================================== */
+
+function renderizar(){
+
+const listaCompleta =
+Object.entries(
+agendamentos || {}
+)
+
+.map(
+([chave,dados]) => ({
+
+chave: chave,
+
+...dados
+
+})
+);
+
+
+/* =====================================================
+   ESTATÍSTICAS
+===================================================== */
+
+const total =
+listaCompleta.length;
+
+
+const confirmados =
+listaCompleta.filter(
+item =>
+item.status === "confirmado"
+).length;
+
+
+const cancelados =
+listaCompleta.filter(
+item =>
+item.status === "cancelado"
+).length;
+
+
+const hoje =
+listaCompleta.filter(
+item =>
+
+item.data === hojeISO()
+
+&&
+
+item.status !== "cancelado"
+
+).length;
+
+
+document.getElementById(
+"total"
+).textContent =
+total;
+
+
+document.getElementById(
+"confirmados"
+).textContent =
+confirmados;
+
+
+document.getElementById(
+"cancelados"
+).textContent =
+cancelados;
+
+
+document.getElementById(
+"hoje"
+).textContent =
+hoje;
+
+
+/* =====================================================
+   FILTROS
+===================================================== */
+
+const data =
+filtroData.value;
+
+
+const barbeiro =
+filtroBarbeiro.value;
+
+
+const status =
+filtroStatus.value;
+
+
+const filtrados =
+listaCompleta.filter(
+item => {
+
+if(
+data &&
+item.data !== data
+){
+
+return false;
+
+}
+
+
+if(
+barbeiro &&
+item.barbeiro !== barbeiro
+){
+
+return false;
+
+}
+
+
+if(
+status &&
+item.status !== status
+){
+
+return false;
+
+}
+
+
+return true;
+
+}
+);
+
+
+/* =====================================================
+   ORDENAR POR DATA E HORÁRIO
+===================================================== */
+
+filtrados.sort(
+(a,b) => {
+
+const A =
+String(a.data || "") +
+" " +
+String(a.hora || "");
+
+
+const B =
+String(b.data || "") +
+" " +
+String(b.hora || "");
+
+
+return A.localeCompare(B);
+
+}
+);
+
+
+/* =====================================================
+   NENHUM AGENDAMENTO
+===================================================== */
+
+if(
+filtrados.length === 0
+){
+
+lista.innerHTML = `
+
+<tr>
+
+<td
+colspan="9"
+class="empty">
+
+Nenhum agendamento encontrado.
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+
+/* =====================================================
+   MONTAR TABELA
+===================================================== */
+
+lista.innerHTML =
+
+filtrados.map(
+item => {
+
+const statusAtual =
+item.status ||
+"confirmado";
+
+
+const whatsapp =
+criarLinkWhatsApp(
+item
+);
+
+
+let acoes = "";
+
+
+if(whatsapp){
+
+acoes += `
+
+<a
+class="action whatsapp"
+href="${whatsapp}"
+target="_blank"
+rel="noopener">
+
+WhatsApp
+
+</a>
+
+`;
+
+}
+
+
+if(
+statusAtual !== "cancelado"
+){
+
+acoes += `
+
+<button
+class="action cancel"
+type="button"
+onclick="cancelarAgendamento('${item.chave}')">
+
+Cancelar
+
+</button>
+
+`;
+
+}
+
+
+return `
+
+<tr>
+
+<td>
+
+${escapar(
+formatarData(
+item.data
+)
+)}
+
+</td>
+
+
+<td>
+
+<strong>
+
+${escapar(
+item.hora || "-"
+)}
+
+</strong>
+
+</td>
+
+
+<td>
+
+${escapar(
+item.nome || "-"
+)}
+
+</td>
+
+
+<td>
+
+${escapar(
+item.telefone || "-"
+)}
+
+</td>
+
+
+<td>
+
+${escapar(
+item.servico || "-"
+)}
+
+</td>
+
+
+<td>
+
+${escapar(
+item.barbeiro || "-"
+)}
+
+</td>
+
+
+<td>
+
+${escapar(
+item.id || "-"
+)}
+
+</td>
+
+
+<td>
+
+<span
+class="badge ${
+statusAtual === "cancelado"
+? "cancelado"
+: "confirmado"
+}">
+
+${escapar(
+statusAtual
+)}
+
+</span>
+
+</td>
+
+
+<td>
+
+${acoes}
+
+</td>
+
+</tr>
+
+`;
+
+}
+).join("");
+
+}
+
+
+/* =====================================================
+   CANCELAR AGENDAMENTO
+===================================================== */
 
 async function cancelarAgendamento(chave){
 
-    const agendamento =
-        agendamentos[chave];
+const agendamento =
+agendamentos[chave];
 
 
-    if(!agendamento){
-        return;
-    }
+if(!agendamento){
 
+alert(
+"Agendamento não encontrado."
+);
 
-    const confirmar =
-        confirm(
-            `Deseja cancelar o agendamento de ${agendamento.nome} às ${agendamento.hora}?`
-        );
-
-
-    if(!confirmar){
-        return;
-    }
-
-
-    try{
-
-        await db
-            .ref(
-                'agendamentos/' +
-                chave
-            )
-            .update({
-
-                status:
-                    'cancelado',
-
-                canceladoEm:
-                    new Date().toISOString()
-
-            });
-
-
-        alert(
-            'Agendamento cancelado com sucesso.'
-        );
-
-
-    }catch(erro){
-
-        console.error(
-            erro
-        );
-
-
-        alert(
-            'Não foi possível cancelar o agendamento.'
-        );
-
-    }
+return;
 
 }
 
 
-// ======================================================
-// DISPONIBILIZAR PARA OS BOTÕES HTML
-// ======================================================
+const confirmar =
+confirm(
 
-window.cancelarAgendamento =
-    cancelarAgendamento;
+"Cancelar o agendamento de " +
 
+(agendamento.nome || "cliente") +
 
-// ======================================================
-// RENDERIZAR AGENDAMENTOS
-// ======================================================
+" às " +
 
-function renderizarAgendamentos(){
+(agendamento.hora || "") +
 
-    const dataSelecionada =
-        filtroData.value;
-
-    const barbeiroSelecionado =
-        filtroBarbeiro.value;
-
-    const statusSelecionado =
-        filtroStatus.value;
-
-
-    const lista =
-        Object.entries(
-            agendamentos
-        )
-        .map(
-            ([chave, dados]) => ({
-
-                chave,
-                ...dados
-
-            })
-        );
-
-
-    // ==================================================
-    // ESTATÍSTICAS
-    // ==================================================
-
-    const total =
-        lista.length;
-
-
-    const confirmados =
-        lista.filter(
-            item =>
-                item.status ===
-                'confirmado'
-        ).length;
-
-
-    const cancelados =
-        lista.filter(
-            item =>
-                item.status ===
-                'cancelado'
-        ).length;
-
-
-    const hoje =
-        lista.filter(
-            item =>
-
-                item.data ===
-                dataHoje()
-
-                &&
-
-                item.status !==
-                'cancelado'
-
-        ).length;
-
-
-    document.getElementById(
-        'totalAgendamentos'
-    ).textContent = total;
-
-
-    document.getElementById(
-        'totalConfirmados'
-    ).textContent = confirmados;
-
-
-    document.getElementById(
-        'totalHoje'
-    ).textContent = hoje;
-
-
-    document.getElementById(
-        'totalCancelados'
-    ).textContent = cancelados;
-
-
-    // ==================================================
-    // FILTROS
-    // ==================================================
-
-    const filtrados =
-        lista.filter(item => {
-
-
-            if(
-                dataSelecionada &&
-                item.data !==
-                dataSelecionada
-            ){
-
-                return false;
-
-            }
-
-
-            if(
-                barbeiroSelecionado &&
-                item.barbeiro !==
-                barbeiroSelecionado
-            ){
-
-                return false;
-
-            }
-
-
-            if(
-                statusSelecionado &&
-                item.status !==
-                statusSelecionado
-            ){
-
-                return false;
-
-            }
-
-
-            return true;
-
-        });
-
-
-    // ==================================================
-    // ORDENAR POR DATA E HORÁRIO
-    // ==================================================
-
-    filtrados.sort(
-        (a,b) => {
-
-            const dataA =
-                `${a.data || ''} ${a.hora || ''}`;
-
-            const dataB =
-                `${b.data || ''} ${b.hora || ''}`;
-
-            return dataA.localeCompare(
-                dataB
-            );
-
-        }
-    );
-
-
-    // ==================================================
-    // NENHUM AGENDAMENTO
-    // ==================================================
-
-    if(
-        filtrados.length === 0
-    ){
-
-        listaAgendamentos.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="8"
-                    class="empty"
-                >
-
-                    Nenhum agendamento
-                    encontrado.
-
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-
-    }
-
-
-    // ==================================================
-    // MONTAR TABELA
-    // ==================================================
-
-    listaAgendamentos.innerHTML =
-        filtrados.map(
-            item => {
-
-
-                const status =
-                    item.status ||
-                    'confirmado';
-
-
-                const whatsapp =
-                    linkWhatsApp(
-                        item
-                    );
-
-
-                const botaoCancelar =
-                    status !== 'cancelado'
-
-                    ?
-
-                    `
-
-                    <button
-                        class="action-btn cancel"
-                        onclick="cancelarAgendamento('${item.chave}')"
-                    >
-
-                        Cancelar
-
-                    </button>
-
-                    `
-
-                    :
-
-                    '';
-
-
-                return `
-
-                <tr>
-
-                    <td>
-
-                        ${
-                            formatarData(
-                                item.data
-                            )
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        <strong>
-
-                            ${
-                                item.hora ||
-                                '-'
-                            }
-
-                        </strong>
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            item.nome ||
-                            '-'
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            item.telefone ||
-                            '-'
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            item.servico ||
-                            '-'
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            item.barbeiro ||
-                            '-'
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        <span
-                            class="status ${status}"
-                        >
-
-                            ${status}
-
-                        </span>
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            whatsapp !== '#'
-
-                            ?
-
-                            `
-
-                            <a
-                                href="${whatsapp}"
-                                target="_blank"
-                                rel="noopener"
-                                class="action-btn whatsapp"
-                            >
-
-                                WhatsApp
-
-                            </a>
-
-                            `
-
-                            :
-
-                            ''
-
-                        }
-
-
-                        ${botaoCancelar}
-
-                    </td>
-
-                </tr>
-
-                `;
-
-            }
-        )
-        .join('');
-
-}
-
-
-// ======================================================
-// ESCUTAR O FIREBASE EM TEMPO REAL
-// ======================================================
-
-db.ref(
-    'agendamentos'
-)
-.on(
-    'value',
-
-    snapshot => {
-
-        agendamentos =
-            snapshot.val() ||
-            {};
-
-
-        renderizarAgendamentos();
-
-    },
-
-    erro => {
-
-        console.error(
-            'Erro Firebase:',
-            erro
-        );
-
-
-        listaAgendamentos.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="8"
-                    class="empty"
-                >
-
-                    Erro ao conectar
-                    ao Firebase.
-
-                    <br><br>
-
-                    ${
-                        erro.message ||
-                        ''
-                    }
-
-                </td>
-
-            </tr>
-
-        `;
-
-    }
+"?"
 
 );
 
 
-// ======================================================
-// FILTROS
-// ======================================================
+if(!confirmar){
+
+return;
+
+}
+
+
+try{
+
+await db
+
+.ref(
+"agendamentos/" +
+chave
+)
+
+.update({
+
+status:
+"cancelado",
+
+canceladoEm:
+new Date().toISOString()
+
+});
+
+
+alert(
+"Agendamento cancelado com sucesso."
+);
+
+}
+
+catch(error){
+
+console.error(
+"Erro ao cancelar:",
+error
+);
+
+alert(
+
+"Erro ao cancelar o agendamento: " +
+error.message
+
+);
+
+}
+
+}
+
+
+window.cancelarAgendamento =
+cancelarAgendamento;
+
+
+/* =====================================================
+   CONEXÃO EM TEMPO REAL COM FIREBASE
+===================================================== */
+
+if(db){
+
+const referencia =
+db.ref(
+"agendamentos"
+);
+
+
+referencia.on(
+
+"value",
+
+function(snapshot){
+
+console.log(
+"Agendamentos recebidos:",
+snapshot.val()
+);
+
+
+agendamentos =
+snapshot.val() || {};
+
+
+firebaseOnline();
+
+
+renderizar();
+
+},
+
+
+function(error){
+
+console.error(
+"Erro ao ler Firebase:",
+error
+);
+
+
+firebaseErro(
+error.message
+);
+
+
+mostrarErro(
+
+"Erro ao carregar agendamentos: " +
+error.message
+
+);
+
+}
+
+);
+
+    }
+    <!-- =====================================================
+     FILTROS EM TEMPO REAL
+===================================================== */
 
 filtroData.addEventListener(
-    'change',
-    renderizarAgendamentos
+"change",
+function(){
+
+renderizar();
+
+}
 );
 
 
 filtroBarbeiro.addEventListener(
-    'change',
-    renderizarAgendamentos
+"change",
+function(){
+
+renderizar();
+
+}
 );
 
 
 filtroStatus.addEventListener(
-    'change',
-    renderizarAgendamentos
+"change",
+function(){
+
+renderizar();
+
+}
 );
 
 
-// ======================================================
-// LIMPAR FILTROS
-// ======================================================
+/* =====================================================
+     LIMPAR FILTROS
+===================================================== */
 
 document.getElementById(
-    'limparFiltros'
+"limpar"
+).addEventListener(
+"click",
+function(){
+
+filtroData.value = "";
+
+filtroBarbeiro.value = "";
+
+filtroStatus.value = "";
+
+renderizar();
+
+}
+);
+
+
+/* =====================================================
+     TESTE INICIAL DO FIREBASE
+===================================================== */
+
+if(db){
+
+db.ref(
+"agendamentos"
+).once(
+"value"
 )
-.addEventListener(
-    'click',
 
-    () => {
+.then(
+function(snapshot){
 
-        filtroData.value =
-            '';
+console.log(
+"Teste de conexão Firebase OK."
+);
 
-        filtroBarbeiro.value =
-            '';
+console.log(
+"Dados encontrados:",
+snapshot.val()
+);
 
-        filtroStatus.value =
-            '';
+}
+)
 
-        renderizarAgendamentos();
+.catch(
+function(error){
 
-    }
+console.error(
+"Falha no teste do Firebase:",
+error
+);
 
-);<!--  -->
+firebaseErro(
+error.message
+);
+
+}
+);
+
+}
+
+
+</script>
+
+</body>
+
+</html>
