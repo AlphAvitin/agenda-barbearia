@@ -1,75 +1,162 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Barbearia Imperial</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  :root { --bg: #0f0f10; --card: #1a1a1c; --gold: #c5a059; --text: #e4e4e7; }
-  body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; margin: 0; padding: 20px; }
-  
-  h1 { text-align: center; color: var(--gold); font-size: 24px; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 15px; }
-  
-  .section-title { font-size: 14px; color: var(--gold); margin: 20px 0 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-  
-  .slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .slot-btn { 
-    background: var(--card); border: 1px solid #333; color: var(--text); 
-    padding: 12px 5px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: 0.3s;
-  }
-  .slot-btn.selected { background: var(--gold); color: black; font-weight: 600; border-color: var(--gold); }
-  
-  input { width: 100%; background: var(--card); border: 1px solid #333; color: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; font-size: 15px; }
-  
-  .confirm-btn { 
-    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gold); color: black; 
-    padding: 20px; border: none; font-size: 16px; font-weight: 700; cursor: pointer; text-transform: uppercase;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Imperial | Agendamento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09090b;
+            --card: #18181b;
+            --accent: #c5a059;
+            --text: #ffffff;
+            --text-muted: #a1a1aa;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: var(--accent);
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Grade de Horários */
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .btn-slot {
+            background: var(--card);
+            border: 1px solid #333;
+            color: var(--text);
+            padding: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-slot.active {
+            background: var(--accent) !important;
+            color: #000 !important;
+            font-weight: 700;
+            border-color: var(--accent);
+        }
+
+        /* Campos de Input */
+        .input-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            background: var(--card);
+            border: 1px solid #333;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            background: var(--accent);
+            color: black;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Barbearia Imperial</h1>
+<div class="container">
+    <h1>Barbearia Imperial</h1>
 
-<div class="section-title">📅 Escolha o Horário</div>
-<div class="slots-grid" id="slotsGrid"></div>
+    <label class="section-label">Horários Disponíveis (08h às 20h)</label>
+    <div class="slots-grid" id="slots"></div>
 
-<div class="section-title">📋 Dados do Cliente</div>
-<input type="date" id="clientDate">
-<input type="text" id="clientName" placeholder="Seu Nome Completo">
+    <label class="section-label">Data e Nome</label>
+    <input type="date" id="date">
+    <input type="text" id="name" placeholder="Seu Nome Completo">
 
-<button class="confirm-btn" onclick="sendBooking()">Confirmar Agendamento</button>
+    <button class="btn-confirm" onclick="confirmarAgendamento()">Confirmar Agendamento</button>
+</div>
 
 <script>
-  const grid = document.getElementById('slotsGrid');
-  let selectedTime = null;
+    const grid = document.getElementById('slots');
+    let selectedTime = null;
 
-  for (let h = 8; h <= 20; h++) {
-    for (let m = 0; m < 60; m += 30) {
-      if (h === 20 && m > 0) break;
-      const time = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
-      const btn = document.createElement('button');
-      btn.className = 'slot-btn';
-      btn.textContent = time;
-      btn.onclick = function() {
-        document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        selectedTime = time;
-      };
-      grid.appendChild(btn);
+    // Gera horários de 30 em 30 min
+    for (let h = 8; h <= 20; h++) {
+        for (let m = 0; m < 60; m += 30) {
+            if (h === 20 && m > 0) break;
+            const time = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+            
+            const btn = document.createElement('button');
+            btn.className = 'btn-slot';
+            btn.textContent = time;
+            btn.onclick = function() {
+                document.querySelectorAll('.btn-slot').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedTime = time;
+            };
+            grid.appendChild(btn);
+        }
     }
-  }
 
-  document.getElementById('clientDate').valueAsDate = new Date();
+    // Data de hoje automática
+    document.getElementById('date').valueAsDate = new Date();
 
-  function sendBooking() {
-    const name = document.getElementById('clientName').value;
-    const date = document.getElementById('clientDate').value;
-    if(!selectedTime || !name) { alert("⚠️ Por favor, selecione um horário e coloque seu nome!"); return; }
-    const msg = `💈 *Agendamento:* ${name} | Data: ${date} | Horário: ${selectedTime}`;
-    window.open(`https://wa.me/5598982845481?text=${encodeURIComponent(msg)}`, '_blank');
-  }
+    function confirmarAgendamento() {
+        const name = document.getElementById('name').value;
+        const date = document.getElementById('date').value;
+
+        if (!selectedTime || !name) {
+            alert("Por favor, selecione um horário e informe seu nome.");
+            return;
+        }
+
+        const msg = `💈 *Agendamento Barbearia*\n\n👤 Cliente: ${name}\n📅 Data: ${date}\n⏰ Horário: ${selectedTime}`;
+        window.open(`https://wa.me/5598982845481?text=${encodeURIComponent(msg)}`, '_blank');
+    }
 </script>
+
 </body>
 </html>
