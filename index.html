@@ -583,11 +583,12 @@
      FIREBASE: cole aqui os dados do SEU projeto (console.firebase.google.com)
      ================================================================ -->
 <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-database-compat.js"></script>
 <script>
   const firebaseConfig = {
     apiKey: "AIzaSyDt7X9Z0Q2fTCniU9wx2pSrbTB1-vjO55o",
     authDomain: "barbearia-5df07.firebaseapp.com",
+    databaseURL: "https://barbearia-5df07-default-rtdb.firebaseio.com",
     projectId: "barbearia-5df07",
     storageBucket: "barbearia-5df07.firebasestorage.app",
     messagingSenderId: "191801759215",
@@ -595,79 +596,213 @@
     measurementId: "G-YWKMCEX4W2"
   };
   firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+  const db = firebase.database();
 </script>
 
 <script>
 (function(){
-  // ---------- build the next 14 valid days (skip Monday & Sunday) ----------
+  // ---------- configuração da agenda ----------
   const dataSelect = document.getElementById('data');
   const diasSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
   const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const barbeiros = ['Marcos Silva','Diego Alves','Rafael Costa','Bruno Mendes'];
+
+  // Duração de cada serviço, usada para impedir horários sobrepostos.
+  const duracoes = {
+    'Corte clássico — R$45': 40,
+    'Barba completa — R$35': 30,
+    'Corte + barba — R$70': 60,
+    'Sobrancelha — R$15': 15,
+    'Platinado / cor — R$120': 90,
+    'Corte infantil — R$35': 30
+  };
+
+  function minutos(hora){
+    const [h,m] = hora.split(':').map(Number);
+    return h * 60 + m;
+  }
+
+  function horaTexto(min){
+    return String(Math.floor(min / 60)).padStart(2,'0') + ':' +
+           String(min % 60).padStart(2,'0');
+  }
+
+  function intervaloColide(inicioA, fimA, inicioB, fimB){
+    return inicioA < fimB && fimA > inicioB;
+  }
+
+  function horarioDeTrabalho(data, inicio, duracao){
+    const dia = new Date(data + 'T12:00:00').getDay();
+    const fim = inicio + duracao;
+
+    // Domingo e segunda fechados.
+    if(dia === 0 || dia === 1) return false;
+
+    // Terça a sexta: 09:00–19:00, intervalo 12:00–13:00.
+    // Sábado: 08:00–17:00.
+    const abertura = dia === 6 ? 8 * 60 : 9 * 60;
+    const fechamento = dia === 6 ? 17 * 60 : 19 * 60;
+
+    if(inicio < abertura || fim > fechamento) return false;
+
+    // Não permite que um serviço atravesse o horário de almoço.
+    if(dia !== 6 && intervaloColide(inicio, fim, 12 * 60, 13 * 60)){
+      return false;
+    }
+
+    return true;
+  }
+
+  // ---------- próximos 10 dias válidos ----------
   const validDates = [];
   let d = new Date();
+
   while(validDates.length < 10){
     d = new Date(d.getTime() + 86400000);
     const day = d.getDay();
-    if(day === 0 || day === 1) continue; // fechado domingo e segunda
+
+    if(day === 0 || day === 1) continue;
+
     const iso = d.toISOString().slice(0,10);
     const label = diasSemana[day] + ', ' + d.getDate() + ' ' + meses[d.getMonth()];
     validDates.push({iso, label});
   }
+
   validDates.forEach(v=>{
     const opt = document.createElement('option');
-    opt.value = v.iso; opt.textContent = v.label;
+    opt.value = v.iso;
+    opt.textContent = v.label;
     dataSelect.appendChild(opt);
   });
 
-  // ---------- time slots ----------
-  const horarios = [];
-  for(let h=9; h<19; h++){
-    if(h===12) continue; // almoço
-    horarios.push(String(h).padStart(2,'0')+':00');
-    horarios.push(String(h).padStart(2,'0')+':30');
-  }
+  // ---------- horários ----------
   const slotsWrap = document.getElementById('slots');
   let selectedSlot = null;
-
   let agendamentos = [];
 
-  // escuta o Firestore em tempo real: qualquer novo agendamento feito por
-  // outro cliente atualiza os horários ocupados na hora, sem recarregar a página
-  db.collection('agendamentos').onSnapshot(snapshot => {
-    agendamentos = snapshot.docs.map(doc => doc.data());
+  // Escuta o Realtime Database.
+  // Qualquer alteração em /agendamentos atualiza a agenda sem recarregar.
+  db.ref('agendamentos').on('value', snapshot => {
+    const val = snapshot.val();
+    agendamentos = val ? Object.values(val) : [];
     renderSlots();
   }, err => {
-    console.error('Erro ao conectar no Firestore:', err);
+    console.error('Erro ao conectar no Firebase Realtime Database:', err);
+    const msg = document.getElementById('formMsg');
+    msg.textContent = 'Não foi possível conectar à agenda. Verifique as regras do Firebase.';
+    msg.className = 'form-msg err';
   });
+
+  function servicoSelecionado(){
+    return document.getElementById('servico').value;
+  }
+
+  function duracaoSelecionada(){
+    return duracoes[servicoSelecionado()] || 30;
+  }
+
+  function agendamentoOcupaHorario(a, data, hora, barbeiro, duracao){
+    if(!a || a.data !== data) return false;
+
+    // Agendamentos antigos com "Sem preferência" são tratados como
+    // ocupando o horário de todos os barbeiros.
+    if(a.barbeiro !== barbeiro && a.barbeiro !== 'Sem preferência') return false;
+
+    const inicioExistente = minutos(a.hora);
+    const duracaoExistente = Number(a.duracao) || 30;
+    const fimExistente = inicioExistente + duracaoExistente;
+
+    const inicioNovo = minutos(hora);
+    const fimNovo = inicioNovo + duracao;
+
+    return intervaloColide(inicioNovo, fimNovo, inicioExistente, fimExistente);
+  }
+
+  function barbeiroLivre(data, hora, barbeiro, duracao, lista = agendamentos){
+    return !lista.some(a => agendamentoOcupaHorario(a, data, hora, barbeiro, duracao));
+  }
+
+  function existeBarbeiroLivre(data, hora, duracao, lista = agendamentos){
+    return barbeiros.some(b => barbeiroLivre(data, hora, b, duracao, lista));
+  }
+
+  function gerarHorarios(data){
+    const dia = new Date(data + 'T12:00:00').getDay();
+    const abertura = dia === 6 ? 8 * 60 : 9 * 60;
+    const fechamento = dia === 6 ? 17 * 60 : 19 * 60;
+    const horarios = [];
+
+    for(let min = abertura; min < fechamento; min += 30){
+      const hora = horaTexto(min);
+      if(horarioDeTrabalho(data, min, duracaoSelecionada())){
+        horarios.push(hora);
+      }
+    }
+
+    return horarios;
+  }
 
   function renderSlots(){
     slotsWrap.innerHTML = '';
+
     const dataAtual = dataSelect.value;
     const barbeiro = document.getElementById('barbeiro').value;
-    horarios.forEach(h=>{
+    const duracao = duracaoSelecionada();
+
+    gerarHorarios(dataAtual).forEach(h=>{
       const btn = document.createElement('div');
       btn.className = 'slot';
       btn.textContent = h;
-      const ocupado = agendamentos.some(a => a.data === dataAtual && a.hora === h && (a.barbeiro === barbeiro || barbeiro === 'Sem preferência' || a.barbeiro === 'Sem preferência'));
-      if(ocupado && barbeiro !== 'Sem preferência'){
+
+      const ocupado = barbeiro === 'Sem preferência'
+        ? !existeBarbeiroLivre(dataAtual, h, duracao)
+        : !barbeiroLivre(dataAtual, h, barbeiro, duracao);
+
+      if(ocupado){
         btn.classList.add('taken');
       }
+
       if(h === selectedSlot){
         btn.classList.add('selected');
       }
-      btn.addEventListener('click', ()=>{
-        selectedSlot = h;
-        renderSlots();
-        updateTicket();
-      });
+
+      if(!ocupado){
+        btn.addEventListener('click', ()=>{
+          selectedSlot = h;
+          renderSlots();
+          updateTicket();
+        });
+      }
+
       slotsWrap.appendChild(btn);
     });
+
+    // Se o serviço mudou e o horário anteriormente selecionado deixou
+    // de ser válido, limpa a seleção.
+    if(selectedSlot && !gerarHorarios(dataAtual).includes(selectedSlot)){
+      selectedSlot = null;
+      updateTicket();
+    }
   }
 
-  dataSelect.addEventListener('change', ()=>{ selectedSlot=null; renderSlots(); updateTicket(); });
-  document.getElementById('barbeiro').addEventListener('change', ()=>{ selectedSlot=null; renderSlots(); updateTicket(); });
-  document.getElementById('servico').addEventListener('change', updateTicket);
+  dataSelect.addEventListener('change', ()=>{
+    selectedSlot = null;
+    renderSlots();
+    updateTicket();
+  });
+
+  document.getElementById('barbeiro').addEventListener('change', ()=>{
+    selectedSlot = null;
+    renderSlots();
+    updateTicket();
+  });
+
+  document.getElementById('servico').addEventListener('change', ()=>{
+    selectedSlot = null;
+    renderSlots();
+    updateTicket();
+  });
+
   document.getElementById('nome').addEventListener('input', updateTicket);
 
   function formatDataLabel(iso){
@@ -676,19 +811,30 @@
   }
 
   function updateTicket(){
-    document.getElementById('tNome').textContent = document.getElementById('nome').value || '—';
-    document.getElementById('tServico').textContent = document.getElementById('servico').value || '—';
-    document.getElementById('tBarbeiro').textContent = document.getElementById('barbeiro').value || '—';
-    document.getElementById('tData').textContent = dataSelect.value ? formatDataLabel(dataSelect.value) : '—';
-    document.getElementById('tHora').textContent = selectedSlot || '—';
+    document.getElementById('tNome').textContent =
+      document.getElementById('nome').value || '—';
+
+    document.getElementById('tServico').textContent =
+      document.getElementById('servico').value || '—';
+
+    document.getElementById('tBarbeiro').textContent =
+      document.getElementById('barbeiro').value || '—';
+
+    document.getElementById('tData').textContent =
+      dataSelect.value ? formatDataLabel(dataSelect.value) : '—';
+
+    document.getElementById('tHora').textContent =
+      selectedSlot || '—';
   }
 
   function gerarCodigo(){
     return 'NDO-' + Math.random().toString(36).slice(2,7).toUpperCase();
   }
 
+  // ---------- salvar no REALTIME DATABASE ----------
   document.getElementById('bookingForm').addEventListener('submit', async function(e){
     e.preventDefault();
+
     const msg = document.getElementById('formMsg');
     msg.className = 'form-msg';
     msg.textContent = '';
@@ -702,44 +848,96 @@
     const nome = document.getElementById('nome').value.trim();
     const telefone = document.getElementById('telefone').value.trim();
     const servico = document.getElementById('servico').value;
-    const barbeiro = document.getElementById('barbeiro').value;
+    const barbeiroEscolhido = document.getElementById('barbeiro').value;
     const data = dataSelect.value;
+    const duracao = duracaoSelecionada();
     const codigo = gerarCodigo();
-    const novo = { id: codigo, nome, telefone, servico, barbeiro, data, hora: selectedSlot, criadoEm: new Date().toISOString() };
 
-    // id fixo por barbeiro+dia+hora: a transação só grava se esse documento
-    // ainda não existir, então dois clientes nunca conseguem confirmar o mesmo horário
-    const docId = (barbeiro + '_' + data + '_' + selectedSlot).replace(/[^a-zA-Z0-9_-]/g,'-');
-    const ref = db.collection('agendamentos').doc(docId);
-
-    try{
-      await db.runTransaction(async (tx) => {
-        const doc = await tx.get(ref);
-        if(doc.exists){ throw new Error('ocupado'); }
-        tx.set(ref, novo);
-      });
-    }catch(err){
-      if(err.message === 'ocupado'){
-        msg.textContent = 'Esse horário acabou de ser reservado. Escolha outro.';
-      } else {
-        msg.textContent = 'Erro ao salvar (' + err.code + '): ' + err.message;
-        console.error('Erro Firestore:', err);
-      }
+    if(!nome || !telefone || !servico || !data){
+      msg.textContent = 'Preencha todos os campos obrigatórios.';
       msg.classList.add('err');
       return;
     }
 
-    document.getElementById('stamp').textContent = 'Confirmado';
-    document.getElementById('stamp').style.borderColor = 'var(--brass-light)';
-    document.getElementById('stamp').style.color = 'var(--brass-light)';
-    document.getElementById('tCode').textContent = codigo;
-    msg.textContent = 'Horário reservado! Guarde o código da sua ficha.';
-    msg.classList.add('ok');
+    // ID exclusivo do registro.
+    const docId = db.ref('agendamentos').push().key;
+
+    // A transação acontece no nó inteiro de agendamentos.
+    // Isso evita corrida entre dois clientes e também verifica
+    // sobreposição de serviços de 40, 60 e 90 minutos.
+    try{
+      const resultado = await db.ref('agendamentos').transaction(atuais => {
+        const lista = atuais ? Object.values(atuais) : [];
+        let barbeiroConfirmado = barbeiroEscolhido;
+
+        if(barbeiroEscolhido === 'Sem preferência'){
+          barbeiroConfirmado = barbeiros.find(b =>
+            barbeiroLivre(data, selectedSlot, b, duracao, lista)
+          );
+
+          if(!barbeiroConfirmado){
+            return; // aborta a transação: nenhum barbeiro está livre.
+          }
+        }else{
+          if(!barbeiroLivre(data, selectedSlot, barbeiroEscolhido, duracao, lista)){
+            return; // horário ocupado.
+          }
+        }
+
+        const novo = {
+          id: codigo,
+          nome,
+          telefone,
+          servico,
+          barbeiro: barbeiroConfirmado,
+          data,
+          hora: selectedSlot,
+          duracao,
+          status: 'confirmado',
+          criadoEm: new Date().toISOString()
+        };
+
+        const novoEstado = atuais ? {...atuais} : {};
+        novoEstado[docId] = novo;
+
+        return novoEstado;
+      });
+
+      if(!resultado.committed){
+        msg.textContent = 'Esse horário acabou de ser reservado. Escolha outro.';
+        msg.classList.add('err');
+        return;
+      }
+
+      const confirmado = resultado.snapshot.child(docId).val();
+
+      document.getElementById('stamp').textContent = 'Confirmado';
+      document.getElementById('stamp').style.borderColor = 'var(--brass-light)';
+      document.getElementById('stamp').style.color = 'var(--brass-light)';
+
+      document.getElementById('tCode').textContent = codigo;
+      document.getElementById('tBarbeiro').textContent =
+        confirmado.barbeiro || barbeiroEscolhido;
+
+      msg.textContent = 'Horário reservado! Guarde o código da sua ficha.';
+      msg.classList.add('ok');
+
+      // Atualiza os horários imediatamente.
+      selectedSlot = null;
+      renderSlots();
+
+    }catch(err){
+      msg.textContent = 'Erro ao salvar no Firebase: ' + (err.message || err);
+      msg.classList.add('err');
+      console.error('Erro Realtime Database:', err);
+    }
   });
 
+  // Renderização inicial.
   updateTicket();
+  renderSlots();
 })();
 </script>
 
 </body>
-</html>                       
+</html>
